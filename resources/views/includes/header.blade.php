@@ -2,9 +2,9 @@
   <div class="max-w-7xl mx-auto container px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center mt-2">
-        <div class="flex-shrink-0">
+        <a href="/" class="flex-shrink-0">
           <img class="h-8 w-8" src="{{ asset('images/logo.svg') }}" alt="Workflow logo" />
-        </div>
+        </a>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline">
             <a href="#" class="px-3 py-2 rounded-md text-sm text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>
@@ -17,13 +17,13 @@
       </div>
       <div class="hidden md:block">
         <div class="ml-4 flex items-center md:ml-6 mt-2">
-          <button class="p-1 border-2 border-transparent border border-gray-800 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Notifications">
+          <button class="p-1 shadow text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Carrito de compras" style="background-color: #353535;">
               <div class="relative">
-                <div class="flex items-center justify-between px-2">
-                  <img src="{{ asset('images/icon-cart.svg') }}" class="border-r pr-1 pl-px border-gray-800" alt="Carrito de compras">
-                  <span class="text-sm"> &middot; $1,540</span>
-                </div>
-                <span class="bg-blue-600 text-white text-xs rounded w-4 h-4 absolute top-0 -mt-3 right-0 -mr-3">1</span>
+                <a href="#" class="flex items-center justify-between px-2">
+                  <img src="{{ asset('images/icon-cart.svg') }}" class="pr-2 border-gray-800" alt="Carrito de compras">
+                  <span class="text-sm"> &middot; &nbsp;$1.540</span>
+                </a>
+                <span class="bg-red-600 text-white text-xs rounded-full w-4 h-4 absolute top-0 -mt-3 right-0 -mr-3">1</span>
               </div>
             </svg>
           </button>
