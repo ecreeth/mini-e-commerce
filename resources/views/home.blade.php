@@ -38,7 +38,7 @@
             <div
             class="absolute top-0 rounded-lg right-0 w-full h-48 bg-gray-300 hidden product-card-hover">
               <div class="flex flex-col items-center justify-center h-full text-sm">
-                <img class="h-8" src="/images/icon-cart.svg" alt="">
+                <img class="h-6" src="/images/icon-cart.svg" alt="">
                 <a href="#" class="shadow-lg text-white rounded px-4 py-1 mt-4" style="background: #353535;">+ Agregar al carrito</a>
               </div>
             </div>
