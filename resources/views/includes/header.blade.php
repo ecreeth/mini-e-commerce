@@ -19,7 +19,7 @@
         <div class="ml-4 flex items-center md:ml-6 mt-2">
           <button class="p-1 shadow text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Carrito de compras" style="background-color: #353535;">
               <div class="relative">
-                <a href="#" class="flex items-center justify-between px-2">
+                <a href="{{ route('cart.index', 'ecreeth') }}" class="flex items-center justify-between px-2">
                   <img src="{{ asset('images/icon-cart.svg') }}" class="pr-2 border-gray-800" alt="Carrito de compras">
                   <span class="text-sm"> &middot; &nbsp;$1.540</span>
                 </a>
