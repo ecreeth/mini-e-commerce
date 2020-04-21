@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/','welcome');
+Route::view('/', 'home');
 
 Route::view('/user/{user}/cart', 'cart.index')->name('cart.index');
+
+Route::view('/product/{product}', 'products.show')->name('products.show');
 
 Auth::routes();
 
