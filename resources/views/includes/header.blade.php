@@ -1,7 +1,7 @@
 <nav class="bg-gray-800 h-64" style="background-color: #1D1D1D;">
   <div class="max-w-7xl mx-auto container px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
-      <div class="flex items-center">
+      <div class="flex items-center mt-2">
         <div class="flex-shrink-0">
           <img class="h-8 w-8" src="{{ asset('images/logo.svg') }}" alt="Workflow logo" />
         </div>
@@ -16,11 +16,14 @@
         </div>
       </div>
       <div class="hidden md:block">
-        <div class="ml-4 flex items-center md:ml-6">
-          <button class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Notifications">
+        <div class="ml-4 flex items-center md:ml-6 mt-2">
+          <button class="p-1 border-2 border-transparent bg-gray-800 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Notifications">
               <div class="relative">
-                <img src="{{ asset('images/icon-cart.svg') }}" alt="">
-                <span class="bg-gray-700 text-white text-xs rounded-full w-4 h-4 absolute top-0 -mt-3 right-0 -mr-4">1</span>
+                <div class="flex items-center justify-between px-2">
+                  <img src="{{ asset('images/icon-cart.svg') }}" class="border-r pr-1 pl-px border-gray-800" alt="Carrito de compras">
+                  <span class="text-sm"> &middot; $1.540</span>
+                </div>
+                <span class="bg-red-700 text-white text-xs rounded w-4 h-4 absolute top-0 -mt-3 right-0 -mr-4">1</span>
               </div>
             </svg>
           </button>
@@ -44,9 +47,9 @@
             -->
             <div class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
               <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Mis Ordenes</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Configuraci&oacute;n</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Cerrar Sesi&oacute;n</a>
               </div>
             </div>
           </div>
