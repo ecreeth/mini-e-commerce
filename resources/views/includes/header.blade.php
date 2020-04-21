@@ -17,13 +17,13 @@
       </div>
       <div class="hidden md:block">
         <div class="ml-4 flex items-center md:ml-6 mt-2">
-          <button class="p-1 border-2 border-transparent bg-gray-800 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Notifications">
+          <button class="p-1 border-2 border-transparent border border-gray-800 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Notifications">
               <div class="relative">
                 <div class="flex items-center justify-between px-2">
                   <img src="{{ asset('images/icon-cart.svg') }}" class="border-r pr-1 pl-px border-gray-800" alt="Carrito de compras">
-                  <span class="text-sm"> &middot; $1.540</span>
+                  <span class="text-sm"> &middot; $1,540</span>
                 </div>
-                <span class="bg-red-700 text-white text-xs rounded w-4 h-4 absolute top-0 -mt-3 right-0 -mr-4">1</span>
+                <span class="bg-blue-600 text-white text-xs rounded w-4 h-4 absolute top-0 -mt-3 right-0 -mr-3">1</span>
               </div>
             </svg>
           </button>
@@ -32,7 +32,7 @@
           <div class="ml-3 relative">
             <div>
               <button class="max-w-xs ml-4 flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                <img class="h-8 w-8 rounded-full" src="{{ asset("images/user.png") }}" alt="" />
               </button>
             </div>
             <!--
