@@ -7,11 +7,11 @@
         </a>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline">
-            <x-page-link text="Home" />
-            <x-page-link text="Categor&iacute;as" />
-            <x-page-link text="Ofertas" />
-            <x-page-link text="Acerca de" />
-            <x-page-link text="Contacto" />
+            <x-link.page to="Home" />
+            <x-link.page to="Categor&iacute;as" />
+            <x-link.page to="Ofertas" />
+            <x-link.page to="Acerca de" />
+            <x-link.page to="Contacto" />
           </div>
         </div>
       </div>
@@ -29,23 +29,8 @@
           </button>
 
           <!-- Profile dropdown -->
-          <div class="ml-3 relative">
-            <div>
-              <button class="max-w-xs ml-4 flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                <img class="h-8 w-8 rounded-full" src="{{ asset("images/user.png") }}" alt="" />
-              </button>
-            </div>
-            <!--
-              Profile dropdown panel, show/hide based on dropdown state.
-            -->
-            <div class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-              <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Mis Ordenes</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Configuraci&oacute;n</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Cerrar Sesi&oacute;n</a>
-              </div>
-            </div>
-          </div>
+          <x-dropdown.profile />
+
         </div>
       </div>
       <div class="-mr-2 flex md:hidden">
@@ -71,11 +56,10 @@
   -->
   <div class="hidden md:hidden">
     <div class="px-2 pt-2 pb-3 sm:px-3">
-      <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>
-      <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Categor&iacute;as</a>
-      <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Ofertas</a>
-      <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Acerca de</a>
-      <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Contacto</a>
+      <x-link.page class="mt-1 block text-base font-medium" to="Home" />
+      <x-link.page class="mt-1 block text-base font-medium" to="Categor&iacute;as" />
+      <x-link.page class="mt-1 block text-base font-medium" to="Ofertas" />
+      <x-link.page class="mt-1 block text-base font-medium" to="Acerca de" />
     </div>
     <div class="pt-4 pb-3 border-t border-gray-700">
       <div class="flex items-center px-5">
@@ -88,9 +72,9 @@
         </div>
       </div>
       <div class="mt-3 px-2">
-        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
-        <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Settings</a>
-        <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Sign out</a>
+        <x-link.page-mobile to="Mis Ordenes" />
+        <x-link.page-mobile to="Configuraci&oacute;n" />
+        <x-link.page-mobile to="Cerrar Sesi&oacute;n" />
       </div>
     </div>
   </div>
