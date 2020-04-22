@@ -1,6 +1,6 @@
 <?php
 
-use App\{Image, Product};
+use App\Image;
 use Illuminate\Database\Seeder;
 
 class ImageSeeder extends Seeder

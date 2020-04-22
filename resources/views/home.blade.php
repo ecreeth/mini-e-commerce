@@ -22,7 +22,7 @@
 </style>
 
     <div id="example"></div>
-    <div class="mt-8 grid grid-cols-4 row-gap-8 col-gap-6">
+    <div class="mt-8 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-6">
       @php
       for ($i=1; $i <= 12; $i++) {
         echo '
