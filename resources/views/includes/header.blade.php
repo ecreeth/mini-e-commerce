@@ -1,4 +1,4 @@
-<nav class="bg-gray-800 h-64" style="background-color: #1D1D1D;">
+<nav class="bg-gray-800 h-64" style="background-color: #353535;">
   <div class="max-w-7xl mx-auto container px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center mt-2">
@@ -17,7 +17,7 @@
       </div>
       <div class="hidden md:block">
         <div class="ml-4 flex items-center md:ml-6 mt-2">
-          <button class="p-1 shadow text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Carrito de compras" style="background-color: #353535;">
+          <button class="p-1 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Carrito de compras" style="background-color: #303030;">
               <div class="relative">
                 <a href="{{ route('cart.index', 'ecreeth') }}" class="flex items-center justify-between px-2">
                   <img src="{{ asset('images/icon-cart.svg') }}" class="pr-2 border-gray-800" alt="Carrito de compras">

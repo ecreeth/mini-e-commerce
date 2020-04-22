@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import Spinner from "../Spinner";
 import ProductContext from "./Context";
+import ProductFilter from "./Filters";
 const ProductCard = lazy(() => import("./Card"));
 
 function ProductList() {
@@ -20,7 +21,8 @@ function ProductList() {
 
   return (
     <ProductContext.Provider value={products}>
-      <div className="mt-8 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-6">
+      <ProductFilter />
+      <div className="mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8">
         <React.Suspense fallback={<Spinner />}>
           {products.map(({ id, name, price, category, cover }) => (
             <ProductCard

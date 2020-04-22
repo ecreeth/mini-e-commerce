@@ -6,14 +6,12 @@
   <title>E-Commerce</title>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body>
-<div>
+<body style="background: #353535;">
   @include('includes.header')
   <main>
     <div class="max-w-7xl mx-auto container">
         @yield('content')
     </div>
   </main>
-</div>
 
 @include('includes.footer')

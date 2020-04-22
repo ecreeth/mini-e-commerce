@@ -4,27 +4,28 @@ function Card({title, price, created_by, category, cover}) {
   return (
     <div className="product-card-container relative">
       <img
-        src={cover}
-        className="bg-gray-200 object-cover w-full h-48 rounded-lg mb-px"
+        src="/images/computer.png"
+        className="object-cover w-full h-48 rounded-lg mb-px"
       />
-      <div className="flex justify-between mt-2 items-center ">
+      <div className="flex justify-between mt-2 items-center text-white">
         <a href="#" className="hover:underline font-bold">
           {title}
         </a>
         <span
-          className="rounded bg-gray-100 border border-gray-200 text-sm px-2 py-px text-blue-700"
+          className="rounded text-sm px-2 py-1 text-blue-700 font-medium"
           title="Precio del art&iacute;culo"
+          style={{ background: '#2a2a2a' }}
         >
           ${price}
         </span>
       </div>
-      <p className="text-sm">
+      <p className="text-xs text-gray-200">
         Por&nbsp;
-        <span className="font-bold text-gray-800 hover:underline cursor-pointer">
+        <span className="font-bold hover:underline cursor-pointer">
           {created_by}&nbsp;
         </span>
         en&nbsp;
-        <a href="#" className="text-blue-500 hover:underline">
+        <a href="#" className="font-bold hover:underline" style={{ color: 'rgb(86, 198, 109)' }}>
           {category}
         </a>
       </p>
