@@ -8,11 +8,12 @@ import EmptyCart from "./Empty";
 
 function DialogCart(props) {
   const { removeProductFromCart, cart } = useContext(ProductContext);
+  const isCartEmpty = cart.length > 0 ? true : false;
   return (
     <Dialog isOpen={props.show} onDismiss={props.close}>
       <div className="flex">
-        <div className="w-2/3">
-          {cart.length > 0 ? (
+        <div className="w-full">
+          {isCartEmpty ? (
             cart.map(item => (
               <CartItem
                 key={item["id"]}
@@ -24,7 +25,7 @@ function DialogCart(props) {
             <EmptyCart />
           )}
         </div>
-        <CheckOut {...props} />
+        {isCartEmpty && <CheckOut {...props} />}
       </div>
 
       <button

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reach/dialog": "^0.10.1",
+    "cogo-toast": "^4.2.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

@@ -1,7 +1,8 @@
 import * as React from "react";
-import ProductContext from './Context';
+import ProductContext from "./Context";
+import cogoToast from "cogo-toast";
 
-function Card({id, title, price, created_by, category, cover, addProduct}) {
+function Card({ id, title, price, created_by, category, cover, addProduct }) {
   const state = React.useContext(ProductContext);
   return (
     <div className="product-card-container relative">
@@ -16,7 +17,7 @@ function Card({id, title, price, created_by, category, cover, addProduct}) {
         <span
           className="rounded text-sm px-2 py-1 text-blue-500 font-medium"
           title="Precio del art&iacute;culo"
-          style={{ background: '#2a2a2a' }}
+          style={{ background: "#2a2a2a" }}
         >
           ${price}
         </span>
@@ -27,7 +28,11 @@ function Card({id, title, price, created_by, category, cover, addProduct}) {
           {created_by}&nbsp;
         </span>
         en&nbsp;
-        <a href="#" className="font-bold hover:underline" style={{ color: 'rgb(86, 198, 109)' }}>
+        <a
+          href="#"
+          className="font-bold hover:underline"
+          style={{ color: "rgb(86, 198, 109)" }}
+        >
           {category}
         </a>
       </p>
@@ -35,7 +40,15 @@ function Card({id, title, price, created_by, category, cover, addProduct}) {
         <div className="flex flex-col items-center justify-center h-full text-sm">
           <img className="h-6" src="/images/icon-cart.svg" alt="" />
           <button
-            onClick={addProduct}
+            onClick={() => {
+              addProduct();
+              cogoToast.success(
+                <span>
+                  Has agregado: <strong>{title}</strong> a tu carrito!
+                </span>,
+                { position: "bottom-right" }
+              );
+            }}
             className="shadow-lg text-white rounded px-4 py-1 mt-4"
             style={{ background: "#353535" }}
           >

@@ -1,4 +1,5 @@
 import React from "react";
+import cogoToast from "cogo-toast";
 
 function CartItem({ id, name, quantity, price, removeItem }) {
   return (
@@ -13,7 +14,15 @@ function CartItem({ id, name, quantity, price, removeItem }) {
         </span>
       </div>
       <button
-        onClick={() => removeItem(id)}
+        onClick={() => {
+          removeItem(id);
+          cogoToast.success(
+            <span>
+              Has eliminado: <strong>{name}</strong> de tu carrito!
+            </span>,
+            { position: "bottom-right" }
+          );
+        }}
         className="bg-red-700 text-sm text-white font-medium rounded px-4 py-2"
       >
         Eliminar del carrito

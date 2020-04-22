@@ -83,11 +83,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function CheckOut(props) {
-    return (react_1.default.createElement("div", { className: "ml-4 border w-1/3 h-48 bg-gray-100 rounded text-center px-4 py-3" },
+    return (react_1.default.createElement("div", { className: "ml-4 border w-2/5 h-48 bg-gray-100 rounded text-center px-4 py-3" },
         react_1.default.createElement("h2", { className: "mt-2 text-lg" }, "Total a pagar:"),
         react_1.default.createElement("p", { className: "text-xl font-bold p-2" }, "RD$25.00"),
         react_1.default.createElement("button", { className: "mt-2 text-white font-bold rounded py-2 px-8", style: { background: "#82b440" }, onClick: props.close }, "Completar Orden"),
-        react_1.default.createElement("p", { className: "text-xs text-gray-700 text-center mt-2" }, "\u00B7 Impuestos incluidos")));
+        react_1.default.createElement("p", { className: "text-xs text-gray-700 text-center mt-4" }, "\u00B7 Impuestos incluidos")));
 }
 exports.default = CheckOut;
 
@@ -134,10 +134,11 @@ var CheckOut_1 = __importDefault(__webpack_require__(/*! ./CheckOut */ "./resour
 var Empty_1 = __importDefault(__webpack_require__(/*! ./Empty */ "./resources/js/components/Cart/Empty.tsx"));
 function DialogCart(props) {
     var _a = react_1.useContext(Context_1.default), removeProductFromCart = _a.removeProductFromCart, cart = _a.cart;
+    var isCartEmpty = cart.length > 0 ? true : false;
     return (react_1.default.createElement(dialog_1.Dialog, { isOpen: props.show, onDismiss: props.close },
         react_1.default.createElement("div", { className: "flex" },
-            react_1.default.createElement("div", { className: "w-2/3" }, cart.length > 0 ? (cart.map(function (item) { return (react_1.default.createElement(Item_1.default, __assign({ key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(Empty_1.default, null))),
-            react_1.default.createElement(CheckOut_1.default, __assign({}, props))),
+            react_1.default.createElement("div", { className: "w-full" }, isCartEmpty ? (cart.map(function (item) { return (react_1.default.createElement(Item_1.default, __assign({ key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(Empty_1.default, null))),
+            isCartEmpty && react_1.default.createElement(CheckOut_1.default, __assign({}, props))),
         react_1.default.createElement("button", { className: "bg-gray-800 mt-6 text-white font-bold rounded py-2 px-4", onClick: props.close }, "Cerrar")));
 }
 exports.default = DialogCart;
@@ -160,7 +161,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function EmptyCart() {
-    return (react_1.default.createElement("div", { className: "border text-center py-8 mb-4 rounded px-4 flex items-center justify-between" }, "\uD83D\uDED2 Su Carrito est\u00E1 vac\u00EDo"));
+    return (react_1.default.createElement("div", { className: "border-2 w-full border-dashed py-8 mb-4 rounded px-4 flex items-center justify-center" }, "\uD83D\uDED2 Su Carrito est\u00E1 vac\u00EDo"));
 }
 exports.default = EmptyCart;
 
@@ -181,6 +182,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var cogo_toast_1 = __importDefault(__webpack_require__(/*! cogo-toast */ "./node_modules/cogo-toast/dist/index.es.js"));
 function CartItem(_a) {
     var id = _a.id, name = _a.name, quantity = _a.quantity, price = _a.price, removeItem = _a.removeItem;
     return (react_1.default.createElement("div", { className: "border border-gray-200 py-2 mb-2 rounded px-4 flex items-center justify-between" },
@@ -194,7 +196,13 @@ function CartItem(_a) {
             react_1.default.createElement("span", { className: "w-6 h-6 text-sm text-center" },
                 "Cantidad: ",
                 react_1.default.createElement("strong", null, quantity))),
-        react_1.default.createElement("button", { onClick: function () { return removeItem(id); }, className: "bg-red-700 text-sm text-white font-medium rounded px-4 py-2" }, "Eliminar del carrito")));
+        react_1.default.createElement("button", { onClick: function () {
+                removeItem(id);
+                cogo_toast_1.default.success(react_1.default.createElement("span", null,
+                    "Has eliminado: ",
+                    react_1.default.createElement("strong", null, name),
+                    " de tu carrito!"), { position: "bottom-right" });
+            }, className: "bg-red-700 text-sm text-white font-medium rounded px-4 py-2" }, "Eliminar del carrito")));
 }
 exports.default = CartItem;
 
@@ -325,6 +333,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var Context_1 = __importDefault(__webpack_require__(/*! ./Context */ "./resources/js/components/Product/Context.tsx"));
+var cogo_toast_1 = __importDefault(__webpack_require__(/*! cogo-toast */ "./node_modules/cogo-toast/dist/index.es.js"));
 function Card(_a) {
     var id = _a.id, title = _a.title, price = _a.price, created_by = _a.created_by, category = _a.category, cover = _a.cover, addProduct = _a.addProduct;
     var state = React.useContext(Context_1.default);
@@ -332,7 +341,7 @@ function Card(_a) {
         React.createElement("img", { src: "/images/computer.png", className: "object-cover w-full h-48 rounded-lg mb-px" }),
         React.createElement("div", { className: "flex justify-between mt-2 items-center text-white" },
             React.createElement("a", { href: "#", className: "hover:underline font-bold" }, title),
-            React.createElement("span", { className: "rounded text-sm px-2 py-1 text-blue-500 font-medium", title: "Precio del art\u00EDculo", style: { background: '#2a2a2a' } },
+            React.createElement("span", { className: "rounded text-sm px-2 py-1 text-blue-500 font-medium", title: "Precio del art\u00EDculo", style: { background: "#2a2a2a" } },
                 "$",
                 price)),
         React.createElement("p", { className: "text-xs text-gray-200" },
@@ -341,11 +350,17 @@ function Card(_a) {
                 created_by,
                 "\u00A0"),
             "en\u00A0",
-            React.createElement("a", { href: "#", className: "font-bold hover:underline", style: { color: 'rgb(86, 198, 109)' } }, category)),
+            React.createElement("a", { href: "#", className: "font-bold hover:underline", style: { color: "rgb(86, 198, 109)" } }, category)),
         React.createElement("div", { className: "absolute top-0 rounded-lg right-0 w-full h-48 bg-gray-300 hidden product-card-hover" },
             React.createElement("div", { className: "flex flex-col items-center justify-center h-full text-sm" },
                 React.createElement("img", { className: "h-6", src: "/images/icon-cart.svg", alt: "" }),
-                React.createElement("button", { onClick: addProduct, className: "shadow-lg text-white rounded px-4 py-1 mt-4", style: { background: "#353535" } }, "+ Agregar al carrito")))));
+                React.createElement("button", { onClick: function () {
+                        addProduct();
+                        cogo_toast_1.default.success(React.createElement("span", null,
+                            "Has agregado: ",
+                            React.createElement("strong", null, title),
+                            " a tu carrito!"), { position: "bottom-right" });
+                    }, className: "shadow-lg text-white rounded px-4 py-1 mt-4", style: { background: "#353535" } }, "+ Agregar al carrito")))));
 }
 exports.default = Card;
 
