@@ -49,7 +49,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function Card(_a) {
-    var title = _a.title, price = _a.price, created_by = _a.created_by, category = _a.category, cover = _a.cover;
+    var id = _a.id, title = _a.title, price = _a.price, created_by = _a.created_by, category = _a.category, cover = _a.cover;
     return (React.createElement("div", { className: "product-card-container relative" },
         React.createElement("img", { src: "/images/computer.png", className: "object-cover w-full h-48 rounded-lg mb-px" }),
         React.createElement("div", { className: "flex justify-between mt-2 items-center text-white" },
@@ -67,7 +67,7 @@ function Card(_a) {
         React.createElement("div", { className: "absolute top-0 rounded-lg right-0 w-full h-48 bg-gray-300 hidden product-card-hover" },
             React.createElement("div", { className: "flex flex-col items-center justify-center h-full text-sm" },
                 React.createElement("img", { className: "h-6", src: "/images/icon-cart.svg", alt: "" }),
-                React.createElement("a", { href: "#", className: "shadow-lg text-white rounded px-4 py-1 mt-4", style: { background: "#353535" } }, "+ Agregar al carrito")))));
+                React.createElement("button", { onClick: function () { return console.log("this producto id is " + id); }, className: "shadow-lg text-white rounded px-4 py-1 mt-4", style: { background: "#353535" } }, "+ Agregar al carrito")))));
 }
 exports.default = Card;
 
@@ -212,7 +212,7 @@ function ProductList() {
         react_1.default.createElement("div", { className: "mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8" },
             react_1.default.createElement(react_1.default.Suspense, { fallback: react_1.default.createElement(Spinner_1.default, null) }, products.map(function (_a) {
                 var id = _a.id, name = _a.name, price = _a.price, category = _a.category, cover = _a.cover;
-                return (react_1.default.createElement(ProductCard, { key: id, title: name, cover: cover, price: price, created_by: "Luis Alvarado", category: category["name"] }));
+                return (react_1.default.createElement(ProductCard, { key: id, id: id, title: name, cover: cover, price: price, created_by: "Luis Alvarado", category: category["name"] }));
             })))));
 }
 exports.default = ProductList;
