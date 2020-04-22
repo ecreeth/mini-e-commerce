@@ -12,7 +12,7 @@ function Card({title, price, created_by, category, cover}) {
           {title}
         </a>
         <span
-          className="rounded text-sm px-2 py-1 text-blue-700 font-medium"
+          className="rounded text-sm px-2 py-1 text-blue-500 font-medium"
           title="Precio del art&iacute;culo"
           style={{ background: '#2a2a2a' }}
         >
