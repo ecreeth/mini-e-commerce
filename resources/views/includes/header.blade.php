@@ -1,4 +1,4 @@
-<nav class="bg-gray-800 h-64" style="background-color: #353535;">
+<nav class="bg-gray-800 h-32" style="background-color: #353535;">
   <div class="max-w-7xl mx-auto container px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center mt-2">
@@ -17,16 +17,6 @@
       </div>
       <div class="hidden md:block">
         <div class="ml-4 flex items-center md:ml-6 mt-2">
-          <button class="p-1 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Carrito de compras" style="background-color: #303030;">
-              <div class="relative">
-                <a href="{{ route('cart.index', 'ecreeth') }}" class="flex items-center justify-between px-2">
-                  <img src="{{ asset('images/icon-cart.svg') }}" class="pr-2 border-gray-800" alt="Carrito de compras">
-                  <span class="text-sm"> &middot; &nbsp;$1.540</span>
-                </a>
-                <span class="bg-red-600 text-white text-xs rounded-full w-4 h-4 absolute top-0 -mt-3 right-0 -mr-3">1</span>
-              </div>
-            </svg>
-          </button>
 
           <!-- Profile dropdown -->
           <x-dropdown.profile />

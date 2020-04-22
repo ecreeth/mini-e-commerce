@@ -4,4 +4,4 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require("./components/Product/List");
+require("./components/App");

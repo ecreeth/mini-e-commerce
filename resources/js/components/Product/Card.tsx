@@ -1,6 +1,8 @@
 import * as React from "react";
+import ProductContext from './Context';
 
-function Card({id, title, price, created_by, category, cover}) {
+function Card({id, title, price, created_by, category, cover, addProduct}) {
+  const state = React.useContext(ProductContext);
   return (
     <div className="product-card-container relative">
       <img
@@ -33,7 +35,7 @@ function Card({id, title, price, created_by, category, cover}) {
         <div className="flex flex-col items-center justify-center h-full text-sm">
           <img className="h-6" src="/images/icon-cart.svg" alt="" />
           <button
-            onClick={() => console.log(`this producto id is ${id}`)}
+            onClick={addProduct}
             className="shadow-lg text-white rounded px-4 py-1 mt-4"
             style={{ background: "#353535" }}
           >
