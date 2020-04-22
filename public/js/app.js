@@ -39,11 +39,18 @@ __webpack_require__(/*! ./components/App */ "./resources/js/components/App.tsx")
 
 "use strict";
 
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
 var Filters_1 = __importDefault(__webpack_require__(/*! ./Product/Filters */ "./resources/js/components/Product/Filters.tsx"));
 var List_1 = __importDefault(__webpack_require__(/*! ./Product/List */ "./resources/js/components/Product/List.tsx"));
@@ -51,7 +58,7 @@ var Cart_1 = __importDefault(__webpack_require__(/*! ./Cart */ "./resources/js/c
 var Dialog_1 = __importDefault(__webpack_require__(/*! ./Cart/Dialog */ "./resources/js/components/Cart/Dialog.tsx"));
 var GlobalStateProvider_1 = __importDefault(__webpack_require__(/*! ./GlobalStateProvider */ "./resources/js/components/GlobalStateProvider.tsx"));
 function App() {
-    var _a = react_1.default.useState(false), showDialog = _a[0], setShowDialog = _a[1];
+    var _a = react_1.useState(false), showDialog = _a[0], setShowDialog = _a[1];
     var open = function () { return setShowDialog(true); };
     var close = function () { return setShowDialog(false); };
     return (react_1.default.createElement(GlobalStateProvider_1.default, null,
@@ -492,47 +499,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var Spinner_1 = __importDefault(__webpack_require__(/*! ../Spinner */ "./resources/js/components/Spinner.tsx"));
 var Context_1 = __importDefault(__webpack_require__(/*! ./Context */ "./resources/js/components/Product/Context.tsx"));
-var ProductCard = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(__webpack_require__(/*! ./Card */ "./resources/js/components/Product/Card.tsx")); }); });
+var Card_1 = __importDefault(__webpack_require__(/*! ./Card */ "./resources/js/components/Product/Card.tsx"));
 function ProductList() {
     var _a = react_1.useContext(Context_1.default), products = _a.products, addProductToCart = _a.addProductToCart;
-    return (react_1.default.createElement("div", { className: "mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8" },
-        react_1.default.createElement(react_1.Suspense, { fallback: react_1.default.createElement(Spinner_1.default, null) }, products.map(function (_a) {
-            var id = _a.id, name = _a.name, price = _a.price, category = _a.category, cover = _a.cover;
-            return (react_1.default.createElement(ProductCard, { key: id, id: id, title: name, cover: cover, price: price, addProduct: function () {
-                    return addProductToCart({ id: id, name: name, price: price, category: category, cover: cover });
-                }, created_by: "Luis Alvarado", category: category["name"] }));
-        }))));
+    return (react_1.default.createElement("div", { className: "mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8" }, products.map(function (_a) {
+        var id = _a.id, name = _a.name, price = _a.price, category = _a.category, cover = _a.cover;
+        return (react_1.default.createElement(Card_1.default, { key: id, id: id, title: name, cover: cover, price: price, addProduct: function () {
+                return addProductToCart({ id: id, name: name, price: price, category: category, cover: cover });
+            }, created_by: "Luis Alvarado", category: category["name"] }));
+    })));
 }
 exports.default = ProductList;
-
-
-/***/ }),
-
-/***/ "./resources/js/components/Spinner.tsx":
-/*!*********************************************!*\
-  !*** ./resources/js/components/Spinner.tsx ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-function Spinner() {
-    return (React.createElement("div", { className: "p-12 border shadow-lg rounded-lg border-gray-1000 text-center mt-4 flex items-center" },
-        React.createElement("h1", { className: "text-white" }, "Cargando lista de productos...")));
-}
-exports.default = Spinner;
 
 
 /***/ }),

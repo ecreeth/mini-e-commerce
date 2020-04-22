@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import ProductFilter from "./Product/Filters";
 import ProductList from "./Product/List";
@@ -7,7 +7,7 @@ import DialogCart from "./Cart/Dialog";
 import GlobalStateProvider from "./GlobalStateProvider";
 
 function App() {
-  const [showDialog, setShowDialog] = React.useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
   return (
