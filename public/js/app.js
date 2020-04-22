@@ -239,7 +239,7 @@ function Cart(props) {
             react_1.default.createElement("a", { href: "#", className: "flex items-center justify-between px-2" },
                 react_1.default.createElement("img", { src: "/images/icon-cart.svg", className: "pr-2 border-gray-800", alt: "Carrito de compras" }),
                 react_1.default.createElement("span", { className: "text-sm" }, "\u00B7 \u00A0$0.00")),
-            react_1.default.createElement("span", { className: "bg-red-600 text-white text-xs rounded-full w-4 h-4 absolute top-0 -mt-3 right-0 -mr-3" }, state.cart.reduce(function (count, item) {
+            react_1.default.createElement("span", { className: "bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center absolute top-0 -mt-3 right-0 -mr-3" }, state.cart.reduce(function (count, item) {
                 return count + item["quantity"];
             }, 0)))));
 }

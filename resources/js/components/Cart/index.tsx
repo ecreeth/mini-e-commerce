@@ -19,7 +19,7 @@ function Cart(props) {
           />
           <span className="text-sm">&middot; &nbsp;$0.00</span>
         </a>
-        <span className="bg-red-600 text-white text-xs rounded-full w-4 h-4 absolute top-0 -mt-3 right-0 -mr-3">
+        <span className="bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center absolute top-0 -mt-3 right-0 -mr-3">
           {state.cart.reduce((count, item) => {
             return count + item["quantity"];
           }, 0)}
