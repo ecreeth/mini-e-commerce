@@ -68,6 +68,32 @@ if (element) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Cart/CheckOut.tsx":
+/*!***************************************************!*\
+  !*** ./resources/js/components/Cart/CheckOut.tsx ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+function CheckOut(props) {
+    return (react_1.default.createElement("div", { className: "ml-4 border w-1/3 h-48 bg-gray-100 rounded text-center px-4 py-3" },
+        react_1.default.createElement("h2", { className: "mt-2 text-lg" }, "Total a pagar:"),
+        react_1.default.createElement("p", { className: "text-xl font-bold p-2" }, "RD$25.00"),
+        react_1.default.createElement("button", { className: "mt-2 text-white font-bold rounded py-2 px-8", style: { background: "#82b440" }, onClick: props.close }, "Completar Orden"),
+        react_1.default.createElement("p", { className: "text-xs text-gray-700 text-center mt-2" }, "\u00B7 Impuestos incluidos")));
+}
+exports.default = CheckOut;
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Cart/Dialog.tsx":
 /*!*************************************************!*\
   !*** ./resources/js/components/Cart/Dialog.tsx ***!
@@ -103,6 +129,58 @@ var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/reac
 var dialog_1 = __webpack_require__(/*! @reach/dialog */ "./node_modules/@reach/dialog/dist/dialog.esm.js");
 __webpack_require__(/*! @reach/dialog/styles.css */ "./node_modules/@reach/dialog/styles.css");
 var Context_1 = __importDefault(__webpack_require__(/*! ../Product/Context */ "./resources/js/components/Product/Context.tsx"));
+var Item_1 = __importDefault(__webpack_require__(/*! ./Item */ "./resources/js/components/Cart/Item.tsx"));
+var CheckOut_1 = __importDefault(__webpack_require__(/*! ./CheckOut */ "./resources/js/components/Cart/CheckOut.tsx"));
+var Empty_1 = __importDefault(__webpack_require__(/*! ./Empty */ "./resources/js/components/Cart/Empty.tsx"));
+function DialogCart(props) {
+    var _a = react_1.useContext(Context_1.default), removeProductFromCart = _a.removeProductFromCart, cart = _a.cart;
+    return (react_1.default.createElement(dialog_1.Dialog, { isOpen: props.show, onDismiss: props.close },
+        react_1.default.createElement("div", { className: "flex" },
+            react_1.default.createElement("div", { className: "w-2/3" }, cart.length > 0 ? (cart.map(function (item) { return (react_1.default.createElement(Item_1.default, __assign({ key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(Empty_1.default, null))),
+            react_1.default.createElement(CheckOut_1.default, __assign({}, props))),
+        react_1.default.createElement("button", { className: "bg-gray-800 mt-6 text-white font-bold rounded py-2 px-4", onClick: props.close }, "Cerrar")));
+}
+exports.default = DialogCart;
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Cart/Empty.tsx":
+/*!************************************************!*\
+  !*** ./resources/js/components/Cart/Empty.tsx ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+function EmptyCart() {
+    return (react_1.default.createElement("div", { className: "border text-center py-8 mb-4 rounded px-4 flex items-center justify-between" }, "\uD83D\uDED2 Su Carrito est\u00E1 vac\u00EDo"));
+}
+exports.default = EmptyCart;
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Cart/Item.tsx":
+/*!***********************************************!*\
+  !*** ./resources/js/components/Cart/Item.tsx ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function CartItem(_a) {
     var id = _a.id, name = _a.name, quantity = _a.quantity, price = _a.price, removeItem = _a.removeItem;
     return (react_1.default.createElement("div", { className: "border border-gray-200 py-2 mb-2 rounded px-4 flex items-center justify-between" },
@@ -118,27 +196,7 @@ function CartItem(_a) {
                 react_1.default.createElement("strong", null, quantity))),
         react_1.default.createElement("button", { onClick: function () { return removeItem(id); }, className: "bg-red-700 text-sm text-white font-medium rounded px-4 py-2" }, "Eliminar del carrito")));
 }
-function EmptyCart() {
-    return (react_1.default.createElement("div", { className: "border text-center py-8 mb-4 rounded px-4 flex items-center justify-between" },
-        "\uD83D\uDED2 Su Carrito est\u00E1 vac\u00EDo",
-        " "));
-}
-function CheckOutSide(props) {
-    return (react_1.default.createElement("div", { className: "ml-4 border w-1/3 h-48 bg-gray-100 rounded text-center px-4 py-3" },
-        react_1.default.createElement("h2", { className: "mt-2 text-lg" }, "Total a pagar:"),
-        react_1.default.createElement("p", { className: "text-xl font-bold p-2" }, "RD$25.00"),
-        react_1.default.createElement("button", { className: "mt-2 text-white font-bold rounded py-2 px-8", style: { background: "#82b440" }, onClick: props.close }, "Completar Orden"),
-        react_1.default.createElement("p", { className: "text-xs text-gray-700 text-center mt-2" }, "\u00B7 Impuestos incluidos")));
-}
-function DialogCart(props) {
-    var _a = react_1.useContext(Context_1.default), removeProductFromCart = _a.removeProductFromCart, cart = _a.cart;
-    return (react_1.default.createElement(dialog_1.Dialog, { isOpen: props.show, onDismiss: props.close },
-        react_1.default.createElement("div", { className: "flex" },
-            react_1.default.createElement("div", { className: "w-2/3" }, cart.length > 0 ? (cart.map(function (item) { return (react_1.default.createElement(CartItem, __assign({ key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(EmptyCart, null))),
-            react_1.default.createElement(CheckOutSide, __assign({}, props))),
-        react_1.default.createElement("button", { className: "bg-gray-800 mt-6 text-white font-bold rounded py-2 px-4", onClick: props.close }, "Cerrar")));
-}
-exports.default = DialogCart;
+exports.default = CartItem;
 
 
 /***/ }),
