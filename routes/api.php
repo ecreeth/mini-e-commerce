@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 Route::apiResource('/products', 'ProductController');
+Route::get('/products/order/{type}', 'ProductController@orderBy');
 
 Route::apiResource('/categories', 'CategoryController');
 Route::get('/categories/{category}/products', 'CategoryController@categoryProducts');

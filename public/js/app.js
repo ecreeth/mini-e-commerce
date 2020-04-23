@@ -372,6 +372,9 @@ function GlobalStateProvider(_a) {
     var filterByCategory = function (categoryId) {
         fetchProduct("/api/categories/" + categoryId + "/products");
     };
+    var sortProductBy = function (type) {
+        fetchProduct("/api/products/order/" + type);
+    };
     return (react_1.default.createElement(Context_1.default.Provider, { value: {
             products: state.products,
             total: state.total,
@@ -380,7 +383,8 @@ function GlobalStateProvider(_a) {
             addProductToCart: addProductToCart,
             getAllProducts: getAllProducts,
             removeProductFromCart: removeProductFromCart,
-            filterByCategory: filterByCategory
+            filterByCategory: filterByCategory,
+            sortProductBy: sortProductBy
         } }, children));
 }
 exports.default = GlobalStateProvider;
@@ -459,7 +463,8 @@ var ProductContext = React.createContext({
     addProductToCart: function (product) { },
     removeProductFromCart: function (productId) { },
     filterByCategory: function (productId) { },
-    getAllProducts: function () { }
+    getAllProducts: function () { },
+    sortProductBy: function (type) { }
 });
 exports.default = ProductContext;
 
@@ -544,7 +549,7 @@ var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/a
 var Context_1 = __importDefault(__webpack_require__(/*! ./Context */ "./resources/js/components/Product/Context.tsx"));
 var FilterItem = react_1.default.lazy(function () { return Promise.resolve().then(function () { return __importStar(__webpack_require__(/*! ./FilterItem */ "./resources/js/components/Product/FilterItem.tsx")); }); });
 function Filters() {
-    var _a = react_1.useContext(Context_1.default), filterByCategory = _a.filterByCategory, getAllProducts = _a.getAllProducts;
+    var _a = react_1.useContext(Context_1.default), filterByCategory = _a.filterByCategory, getAllProducts = _a.getAllProducts, sortProductBy = _a.sortProductBy;
     var _b = react_1.useState(0), selectedFilterItem = _b[0], setSelectedFilter = _b[1];
     var _c = react_1.useState([]), filters = _c[0], setFilters = _c[1];
     react_1.useEffect(function () {
@@ -572,13 +577,16 @@ function Filters() {
                                 "Mostrar Todo")),
                         react_1.default.createElement(react_1.Suspense, { fallback: react_1.default.createElement("span", { className: "text-white" }, "Cargando lista de filtros") }, filters.map(function (_a) {
                             var id = _a.id, name = _a.name;
-                            return (react_1.default.createElement(FilterItem, { id: id, selected: selectedFilterItem, filter: filterByCategory, setSelected: setSelectedFilter, category: id, title: name }));
+                            return (react_1.default.createElement(FilterItem, { key: id, id: id, selected: selectedFilterItem, filter: filterByCategory, setSelected: setSelectedFilter, category: id, title: name }));
                         })))),
                 react_1.default.createElement("div", null,
-                    react_1.default.createElement("select", { className: "form-select text-sm text-white bg-gray-1000 border-transparent block w-full" },
-                        react_1.default.createElement("option", { value: "Mas Recientes" }, "Mas Recientes"),
-                        react_1.default.createElement("option", { value: "Ascendente" }, "Ascendente"),
-                        react_1.default.createElement("option", { value: "Descendente" }, "Descendente")))))));
+                    react_1.default.createElement("select", { defaultValue: 0, onChange: function (_a) {
+                            var target = _a.target;
+                            return sortProductBy(target.value);
+                        }, className: "cursor-pointer form-select text-sm text-white bg-gray-1000 border-transparent block w-full" },
+                        react_1.default.createElement("option", { disabled: true, value: "0" }, "Ordenar Por"),
+                        react_1.default.createElement("option", { value: "Asc" }, "Nombre (Asc)"),
+                        react_1.default.createElement("option", { value: "Desc" }, "Nombre (Desc)")))))));
 }
 exports.default = Filters;
 
@@ -672,6 +680,7 @@ exports.ADD_PRODUCT = "ADD_PRODUCT";
 exports.REMOVE_PRODUCT = "REMOVE_PRODUCT";
 exports.ADD_PRODUCTS = "ADD_PRODUCTS";
 exports.SET_LOADING = "SET_LOADING";
+exports.SORT_PRODUCT_BY = "SORT_PRODUCT_BY";
 var addProductToCart = function (product, state) {
     var updatedCart = __spreadArrays(state.cart);
     var updatedItemIndex = updatedCart.findIndex(function (item) { return item.id === product.id; });
@@ -706,16 +715,9 @@ var addProducts = function (products, state) {
 var setLoading = function (loading, state) {
     return __assign(__assign({}, state), { isLoading: loading });
 };
-var sortByMoreRecents = function (state) {
+var sortProductBy = function (type, state) {
     var sortedProducts = state.products;
-    return __assign(__assign({}, state), { products: sortedProducts });
-};
-var sortByOrderAsc = function (state) {
-    var sortedProducts = state.products.sort();
-    return __assign(__assign({}, state), { products: sortedProducts });
-};
-var sortByOrderDesc = function (state) {
-    var sortedProducts = state.products.sort();
+    console.log(type);
     return __assign(__assign({}, state), { products: sortedProducts });
 };
 exports.CartReducer = function (state, action) {
@@ -728,6 +730,8 @@ exports.CartReducer = function (state, action) {
             return addProducts(action.products, state);
         case exports.SET_LOADING:
             return setLoading(action.loading, state);
+        case exports.SORT_PRODUCT_BY:
+            return sortProductBy(action.sortBy, state);
         default:
             return state;
     }

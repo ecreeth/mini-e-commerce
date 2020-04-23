@@ -4,7 +4,9 @@ import ProductContext from "./Context";
 const FilterItem = React.lazy(() => import("./FilterItem"));
 
 function Filters() {
-  const { filterByCategory, getAllProducts } = useContext(ProductContext);
+  const { filterByCategory, getAllProducts, sortProductBy } = useContext(
+    ProductContext
+  );
   const [selectedFilterItem, setSelectedFilter] = useState(0);
   const [filters, setFilters] = useState([]);
 
@@ -62,6 +64,7 @@ function Filters() {
               >
                 {filters.map(({ id, name }) => (
                   <FilterItem
+                    key={id}
                     id={id}
                     selected={selectedFilterItem}
                     filter={filterByCategory}
@@ -74,10 +77,14 @@ function Filters() {
             </ul>
           </div>
           <div>
-            <select className="form-select text-sm text-white bg-gray-1000 border-transparent block w-full">
-              <option value="Mas Recientes">Mas Recientes</option>
-              <option value="Ascendente">Ascendente</option>
-              <option value="Descendente">Descendente</option>
+            <select
+              defaultValue={0}
+              onChange={({ target }) => sortProductBy(target.value)}
+              className="cursor-pointer form-select text-sm text-white bg-gray-1000 border-transparent block w-full"
+            >
+              <option disabled value="0">Ordenar Por</option>
+              <option value="Asc">Nombre (Asc)</option>
+              <option value="Desc">Nombre (Desc)</option>
             </select>
           </div>
         </div>

@@ -8,7 +8,8 @@ const ProductContext = React.createContext({
   addProductToCart: product => {},
   removeProductFromCart: productId => {},
   filterByCategory: productId => {},
-  getAllProducts: () => {}
+  getAllProducts: () => {},
+  sortProductBy: type => {}
 });
 
 export default ProductContext;

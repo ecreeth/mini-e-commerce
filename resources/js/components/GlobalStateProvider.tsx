@@ -7,7 +7,8 @@ import {
   ADD_PRODUCT,
   ADD_PRODUCTS,
   REMOVE_PRODUCT,
-  SET_LOADING
+  SET_LOADING,
+  SORT_PRODUCT_BY
 } from "./reducer";
 
 function GlobalStateProvider({ children }) {
@@ -55,6 +56,10 @@ function GlobalStateProvider({ children }) {
     fetchProduct(`/api/categories/${categoryId}/products`);
   };
 
+  const sortProductBy = type => {
+    fetchProduct(`/api/products/order/${type}`);
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -65,7 +70,8 @@ function GlobalStateProvider({ children }) {
         addProductToCart,
         getAllProducts,
         removeProductFromCart,
-        filterByCategory
+        filterByCategory,
+        sortProductBy
       }}
     >
       {children}

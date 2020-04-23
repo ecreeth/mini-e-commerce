@@ -2,6 +2,7 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 export const ADD_PRODUCTS = "ADD_PRODUCTS";
 export const SET_LOADING = "SET_LOADING";
+export const SORT_PRODUCT_BY = "SORT_PRODUCT_BY";
 
 const addProductToCart = (product, state) => {
   const updatedCart = [...state.cart];
@@ -22,7 +23,6 @@ const addProductToCart = (product, state) => {
 
   return { ...state, cart: updatedCart, total };
 };
-
 const removeProductFromCart = (productId, state) => {
   const updatedCart = [...state.cart];
   const updatedItemIndex = updatedCart.findIndex(item => item.id === productId);
@@ -40,25 +40,15 @@ const removeProductFromCart = (productId, state) => {
 
   return { ...state, cart: updatedCart, total };
 };
-
 const addProducts = (products, state) => {
   return { ...state, products };
 };
 const setLoading = (loading, state) => {
   return { ...state, isLoading: loading };
 };
-const sortByMoreRecents = state => {
+const sortProductBy = (type, state) => {
   const sortedProducts = state.products;
-  return { ...state, products: sortedProducts };
-};
-
-const sortByOrderAsc = state => {
-  const sortedProducts = state.products.sort();
-  return { ...state, products: sortedProducts };
-};
-
-const sortByOrderDesc = state => {
-  const sortedProducts = state.products.sort();
+  console.log(type);
   return { ...state, products: sortedProducts };
 };
 
@@ -66,14 +56,14 @@ export const CartReducer = (state, action) => {
   switch (action.type) {
     case ADD_PRODUCT:
       return addProductToCart(action.product, state);
-
     case REMOVE_PRODUCT:
       return removeProductFromCart(action.productId, state);
-
     case ADD_PRODUCTS:
       return addProducts(action.products, state);
     case SET_LOADING:
       return setLoading(action.loading, state);
+    case SORT_PRODUCT_BY:
+      return sortProductBy(action.sortBy, state);
 
     default:
       return state;
