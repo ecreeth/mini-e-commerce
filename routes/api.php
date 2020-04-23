@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::apiResource('/products', 'ProductController');
+
+Route::apiResource('/categories', 'CategoryController');
+Route::get('/categories/{category}/products', 'CategoryController@categoryProducts');

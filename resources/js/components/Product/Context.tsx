@@ -7,6 +7,7 @@ const ProductContext = React.createContext({
   addProductToCart: product => {},
   removeProductFromCart: productId => {},
   filterByCategory: productId => {},
+  getAllProducts: () => {}
 });
 
 export default ProductContext;

@@ -1,6 +1,6 @@
 import React from "react";
 
-function EmptyCart() {
+function EmptyProducts() {
   return (
     <div
       className="border w-full py-8 mb-4 rounded px-4 flex items-center text-white justify-center">
@@ -8,4 +8,4 @@ function EmptyCart() {
     </div>
   );
 }
-export default EmptyCart;
+export default EmptyProducts;

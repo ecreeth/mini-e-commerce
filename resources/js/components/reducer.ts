@@ -1,3 +1,4 @@
+import axios from "axios";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
@@ -42,12 +43,16 @@ const removeProductFromCart = (productId, state) => {
 };
 
 const filterByCategory = (categoryId, state) => {
-  const updatedProducts = state.products.filter(({ category }) => {
-    return category["id"] == categoryId;
-  });
-
-  console.log(updatedProducts);
-  return { ...state, products: updatedProducts };
+  const products: any = [];
+  axios
+    .get(`/api/categories/${categoryId}/products`)
+    .then(res => {
+      Object.assign(products, res.data.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return { ...state, products };
 };
 
 const addProducts = (products, state) => {

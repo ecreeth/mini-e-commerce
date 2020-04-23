@@ -7,7 +7,7 @@ import {
   ADD_PRODUCT,
   ADD_PRODUCTS,
   REMOVE_PRODUCT,
-  FILTER_BY_CATEGORY
+  FILTER_BY_CATEGORY,
 } from "./reducer";
 
 function GlobalStateProvider({ children }) {
@@ -17,8 +17,8 @@ function GlobalStateProvider({ children }) {
     total: 0
   });
 
-  useEffect(() => {
-    axios
+  const getProducts = async () => {
+    await axios
       .get("/api/products")
       .then(res => {
         addProducts(res.data.data);
@@ -26,10 +26,18 @@ function GlobalStateProvider({ children }) {
       .catch(error => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    getProducts();
   }, []);
 
   const addProducts = products => {
     dispatch({ type: ADD_PRODUCTS, products });
+  };
+
+  const getAllProducts = () => {
+    getProducts();
   };
 
   const addProductToCart = product => {
@@ -51,6 +59,7 @@ function GlobalStateProvider({ children }) {
         total: state.total,
         cart: state.cart,
         addProductToCart,
+        getAllProducts,
         removeProductFromCart,
         filterByCategory
       }}

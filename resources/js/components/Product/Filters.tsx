@@ -1,14 +1,12 @@
 import React, { useContext } from "react";
 import ProductContext from "./Context";
 
-function FilterItem({ title, category }) {
-  const { filterByCategory } = useContext(ProductContext);
-
+function FilterItem({ title, category, filter }) {
   return (
     <li className="mr-4">
       <button
         onClick={() => {
-          filterByCategory(category);
+          filter(category);
         }}
         className="font-thin hover:text-white text-gray-150"
       >
@@ -19,6 +17,8 @@ function FilterItem({ title, category }) {
 }
 
 function Filters() {
+  const { filterByCategory, getAllProducts } = useContext(ProductContext);
+
   return (
     <div
       className="bg-white container rounded-lg mx-auto"
@@ -29,9 +29,9 @@ function Filters() {
           <div>
             <ul className="flex">
               <li className="mr-4">
-                <a
+                <button
+                  onClick={() => getAllProducts()}
                   className="font-thin font-bold flex items-center"
-                  href="#"
                   style={{ color: "white" }}
                 >
                   <svg
@@ -48,15 +48,43 @@ function Filters() {
                     />
                   </svg>
                   Mostrar Todo
-                </a>
+                </button>
               </li>
-              <FilterItem category={10} title="Computadoras" />
-              <FilterItem category={11} title="Telefonos" />
-              <FilterItem category={12} title="Celulares" />
-              <FilterItem category={13} title="Impresoras" />
-              <FilterItem category={14} title="Tarjetas" />
-              <FilterItem category={15} title="Almacenamiento" />
-              <FilterItem category={16} title="Imágenes & Sonido" />
+              <FilterItem
+                filter={filterByCategory}
+                category={10}
+                title="Computadoras"
+              />
+              <FilterItem
+                filter={filterByCategory}
+                category={11}
+                title="Telefonos"
+              />
+              <FilterItem
+                filter={filterByCategory}
+                category={12}
+                title="Celulares"
+              />
+              <FilterItem
+                filter={filterByCategory}
+                category={13}
+                title="Impresoras"
+              />
+              <FilterItem
+                filter={filterByCategory}
+                category={14}
+                title="Tarjetas"
+              />
+              <FilterItem
+                filter={filterByCategory}
+                category={15}
+                title="Almacenamiento"
+              />
+              <FilterItem
+                filter={filterByCategory}
+                category={16}
+                title="Imágenes & Sonido"
+              />
             </ul>
           </div>
           <div>
