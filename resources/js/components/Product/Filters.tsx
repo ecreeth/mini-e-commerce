@@ -1,8 +1,24 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import ProductContext from "./Context";
 
+function FilterItem({ title, category }) {
+  const { filterByCategory } = useContext(ProductContext);
+
+  return (
+    <li className="mr-4">
+      <button
+        onClick={() => {
+          filterByCategory(category);
+        }}
+        className="font-thin hover:text-white text-gray-150"
+      >
+        <span className="text-gray-100">#</span> {title}
+      </button>
+    </li>
+  );
+}
+
 function Filters() {
-  const state = useContext(ProductContext);
   return (
     <div
       className="bg-white container rounded-lg mx-auto"
@@ -34,65 +50,13 @@ function Filters() {
                   Mostrar Todo
                 </a>
               </li>
-              <li className="mr-4">
-                <a
-                  className="font-thin hover:text-white text-gray-150"
-                  href="#"
-                >
-                  <span className="text-gray-100">#</span>{" "}
-                  Computadoras
-                </a>
-              </li>
-              <li className="mr-4">
-                <a
-                  className="font-thin hover:text-white text-gray-150"
-                  href="#"
-                >
-                  <span className="text-gray-100">#</span> Telefonos
-                </a>
-              </li>
-              <li className="mr-4">
-                <a
-                  className="font-thin hover:text-white text-gray-150"
-                  href="#"
-                >
-                  <span className="text-gray-100">#</span> Celulares
-                </a>
-              </li>
-              <li className="mr-4">
-                <a
-                  className="font-thin hover:text-white text-gray-150"
-                  href="#"
-                >
-                  <span className="text-gray-100">#</span> Impresoras
-                </a>
-              </li>
-              <li className="mr-4">
-                <a
-                  className="font-thin hover:text-white text-gray-150"
-                  href="#"
-                >
-                  <span className="text-gray-100">#</span> Tarjetas
-                </a>
-              </li>
-              <li className="mr-4">
-                <a
-                  className="font-thin hover:text-white text-gray-150"
-                  href="#"
-                >
-                  <span className="text-gray-100">#</span>{" "}
-                  Almacenamiento
-                </a>
-              </li>
-              <li className="mr-4">
-                <a
-                  className="font-thin hover:text-white text-gray-150"
-                  href="#"
-                >
-                  <span className="text-gray-100">#</span> Imágenes &
-                  Sonido
-                </a>
-              </li>
+              <FilterItem category={10} title="Computadoras" />
+              <FilterItem category={11} title="Telefonos" />
+              <FilterItem category={12} title="Celulares" />
+              <FilterItem category={13} title="Impresoras" />
+              <FilterItem category={14} title="Tarjetas" />
+              <FilterItem category={15} title="Almacenamiento" />
+              <FilterItem category={16} title="Imágenes & Sonido" />
             </ul>
           </div>
           <div>

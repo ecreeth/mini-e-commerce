@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto container px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center mt-2">
-        <a href="/" class="flex-shrink-0">
+        <a href="#" class="flex-shrink-0">
           <img class="h-8 w-8" src="{{ asset('images/logo.svg') }}" alt="Logo" />
         </a>
         <div class="hidden md:block">

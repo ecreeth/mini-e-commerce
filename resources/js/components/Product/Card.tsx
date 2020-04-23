@@ -1,14 +1,12 @@
-import * as React from "react";
-import ProductContext from "./Context";
+import React from "react";
 import cogoToast from "cogo-toast";
 
-function Card({ id, title, price, created_by, category, cover, addProduct }) {
-  const state = React.useContext(ProductContext);
+function Card({ id, title, price, category, cover, addProduct }) {
   return (
     <div className="product-card-container relative">
       <img
         src="/images/computer.png"
-        className="object-cover w-full h-48 rounded-lg mb-px"
+        className="object-cover w-full shadow-sm h-48 rounded-lg mb-px"
       />
       <div className="flex justify-between mt-2 items-center text-white">
         <a href="#" className="hover:underline font-bold">
@@ -25,7 +23,7 @@ function Card({ id, title, price, created_by, category, cover, addProduct }) {
       <p className="text-xs text-gray-200">
         Por&nbsp;
         <span className="font-bold hover:underline cursor-pointer">
-          {created_by}&nbsp;
+        Luis Alvarado&nbsp;
         </span>
         en&nbsp;
         <a
@@ -49,8 +47,7 @@ function Card({ id, title, price, created_by, category, cover, addProduct }) {
                 { position: "bottom-right" }
               );
             }}
-            className="shadow-lg text-white rounded px-4 py-1 mt-4"
-            style={{ background: "#353535" }}
+            className="shadow-lg transition-all text-white hover:bg-gray-800 bg-gray-1000 active:bg-blue-700 rounded px-4 py-1 mt-4"
           >
             + Agregar al carrito
           </button>

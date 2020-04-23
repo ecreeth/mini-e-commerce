@@ -4,6 +4,7 @@ import ProductContext from "../Product/Context";
 
 function Cart(props) {
   const state = useContext(ProductContext);
+  const total = new Intl.NumberFormat("en-IN").format(state.total);
   return (
     <button
       onClick={props.onClick}
@@ -17,7 +18,7 @@ function Cart(props) {
             className="pr-2 border-gray-800"
             alt="Carrito de compras"
           />
-          <span className="text-sm">&middot; &nbsp;$0.00</span>
+          <span className="text-sm">&middot; &nbsp;${total}</span>
         </a>
         <span className="bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center absolute top-0 -mt-3 right-0 -mr-3">
           {state.cart.reduce((count, item) => {
