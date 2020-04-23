@@ -1,16 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ProductContext from "./Context";
 
-function FilterItem({ title, category, filter }) {
+function FilterItem({ id, title, category, filter, selected, setSelected }) {
+  let selectedItem = "";
+  if (selected == id) {
+    selectedItem = "font-bold text-white";
+  }
   return (
     <li className="mr-4">
       <button
         onClick={() => {
           filter(category);
+          setSelected(id);
         }}
         className="font-thin hover:text-white text-gray-150"
       >
-        <span className="text-gray-100">#</span> {title}
+        <span className="text-gray-100">#</span>&nbsp;
+        <span className={`${selectedItem}`}>{title}</span>
       </button>
     </li>
   );
@@ -18,6 +24,7 @@ function FilterItem({ title, category, filter }) {
 
 function Filters() {
   const { filterByCategory, getAllProducts } = useContext(ProductContext);
+  const [selectedFilterItem, setSelectedFilter] = useState(0);
 
   return (
     <div
@@ -30,9 +37,15 @@ function Filters() {
             <ul className="flex">
               <li className="mr-4">
                 <button
-                  onClick={() => getAllProducts()}
-                  className="font-thin font-bold flex items-center"
-                  style={{ color: "white" }}
+                  onClick={() => {
+                    getAllProducts();
+                    setSelectedFilter(0);
+                  }}
+                  className={`font-thin ${
+                    selectedFilterItem == 0
+                      ? "font-bold text-white"
+                      : "text-gray-150"
+                  } flex items-center`}
                 >
                   <svg
                     className="mr-2"
@@ -51,36 +64,57 @@ function Filters() {
                 </button>
               </li>
               <FilterItem
+                id={1}
+                selected={selectedFilterItem}
                 filter={filterByCategory}
+                setSelected={setSelectedFilter}
                 category={10}
                 title="Computadoras"
               />
               <FilterItem
+                id={2}
+                selected={selectedFilterItem}
                 filter={filterByCategory}
+                setSelected={setSelectedFilter}
                 category={11}
                 title="Telefonos"
               />
               <FilterItem
+                id={3}
+                selected={selectedFilterItem}
                 filter={filterByCategory}
+                setSelected={setSelectedFilter}
                 category={12}
                 title="Celulares"
               />
               <FilterItem
+                id={4}
+                selected={selectedFilterItem}
                 filter={filterByCategory}
+                setSelected={setSelectedFilter}
                 category={13}
                 title="Impresoras"
               />
               <FilterItem
+                id={5}
+                selected={selectedFilterItem}
                 filter={filterByCategory}
+                setSelected={setSelectedFilter}
                 category={14}
                 title="Tarjetas"
               />
               <FilterItem
+                id={6}
+                selected={selectedFilterItem}
+                setSelected={setSelectedFilter}
                 filter={filterByCategory}
                 category={15}
                 title="Almacenamiento"
               />
               <FilterItem
+                id={7}
+                setSelected={setSelectedFilter}
+                selected={selectedFilterItem}
                 filter={filterByCategory}
                 category={16}
                 title="Imágenes & Sonido"

@@ -1,8 +1,7 @@
-import axios from "axios";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
-export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
 export const ADD_PRODUCTS = "ADD_PRODUCTS";
+export const SET_LOADING = "SET_LOADING";
 
 const addProductToCart = (product, state) => {
   const updatedCart = [...state.cart];
@@ -42,23 +41,12 @@ const removeProductFromCart = (productId, state) => {
   return { ...state, cart: updatedCart, total };
 };
 
-const filterByCategory = (categoryId, state) => {
-  const products: any = [];
-  axios
-    .get(`/api/categories/${categoryId}/products`)
-    .then(res => {
-      Object.assign(products, res.data.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  return { ...state, products };
-};
-
 const addProducts = (products, state) => {
   return { ...state, products };
 };
-
+const setLoading = (loading, state) => {
+  return { ...state, isLoading: loading };
+};
 const sortByMoreRecents = state => {
   const sortedProducts = state.products;
   return { ...state, products: sortedProducts };
@@ -82,11 +70,10 @@ export const CartReducer = (state, action) => {
     case REMOVE_PRODUCT:
       return removeProductFromCart(action.productId, state);
 
-    case FILTER_BY_CATEGORY:
-      return filterByCategory(action.categoryId, state);
-
     case ADD_PRODUCTS:
       return addProducts(action.products, state);
+    case SET_LOADING:
+      return setLoading(action.loading, state);
 
     default:
       return state;

@@ -7,21 +7,24 @@ import {
   ADD_PRODUCT,
   ADD_PRODUCTS,
   REMOVE_PRODUCT,
-  FILTER_BY_CATEGORY,
+  SET_LOADING
 } from "./reducer";
 
 function GlobalStateProvider({ children }) {
   const [state, dispatch] = useReducer(CartReducer, {
     cart: [],
     products: [],
-    total: 0
+    total: 0,
+    isLoading: true
   });
 
-  const getProducts = async () => {
+  const fetchProduct = async url => {
+    dispatch({ type: SET_LOADING, loading: true });
     await axios
-      .get("/api/products")
+      .get(url)
       .then(res => {
         addProducts(res.data.data);
+        dispatch({ type: SET_LOADING, loading: false });
       })
       .catch(error => {
         console.log(error);
@@ -29,7 +32,7 @@ function GlobalStateProvider({ children }) {
   };
 
   useEffect(() => {
-    getProducts();
+    fetchProduct("/api/products");
   }, []);
 
   const addProducts = products => {
@@ -37,7 +40,7 @@ function GlobalStateProvider({ children }) {
   };
 
   const getAllProducts = () => {
-    getProducts();
+    fetchProduct("/api/products");
   };
 
   const addProductToCart = product => {
@@ -49,7 +52,7 @@ function GlobalStateProvider({ children }) {
   };
 
   const filterByCategory = categoryId => {
-    dispatch({ type: FILTER_BY_CATEGORY, categoryId });
+    fetchProduct(`/api/categories/${categoryId}/products`);
   };
 
   return (
@@ -58,6 +61,7 @@ function GlobalStateProvider({ children }) {
         products: state.products,
         total: state.total,
         cart: state.cart,
+        isLoading: state.isLoading,
         addProductToCart,
         getAllProducts,
         removeProductFromCart,

@@ -331,19 +331,23 @@ function GlobalStateProvider(_a) {
     var _b = react_1.useReducer(reducer_1.CartReducer, {
         cart: [],
         products: [],
-        total: 0
+        total: 0,
+        isLoading: true
     }), state = _b[0], dispatch = _b[1];
-    var getProducts = function () { return __awaiter(_this, void 0, void 0, function () {
+    var fetchProduct = function (url) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.default
-                        .get("/api/products")
-                        .then(function (res) {
-                        addProducts(res.data.data);
-                    })
-                        .catch(function (error) {
-                        console.log(error);
-                    })];
+                case 0:
+                    dispatch({ type: reducer_1.SET_LOADING, loading: true });
+                    return [4 /*yield*/, axios_1.default
+                            .get(url)
+                            .then(function (res) {
+                            addProducts(res.data.data);
+                            dispatch({ type: reducer_1.SET_LOADING, loading: false });
+                        })
+                            .catch(function (error) {
+                            console.log(error);
+                        })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -351,13 +355,13 @@ function GlobalStateProvider(_a) {
         });
     }); };
     react_1.useEffect(function () {
-        getProducts();
+        fetchProduct("/api/products");
     }, []);
     var addProducts = function (products) {
         dispatch({ type: reducer_1.ADD_PRODUCTS, products: products });
     };
     var getAllProducts = function () {
-        getProducts();
+        fetchProduct("/api/products");
     };
     var addProductToCart = function (product) {
         dispatch({ type: reducer_1.ADD_PRODUCT, product: product });
@@ -366,12 +370,13 @@ function GlobalStateProvider(_a) {
         dispatch({ type: reducer_1.REMOVE_PRODUCT, productId: productId });
     };
     var filterByCategory = function (categoryId) {
-        dispatch({ type: reducer_1.FILTER_BY_CATEGORY, categoryId: categoryId });
+        fetchProduct("/api/categories/" + categoryId + "/products");
     };
     return (react_1.default.createElement(Context_1.default.Provider, { value: {
             products: state.products,
             total: state.total,
             cart: state.cart,
+            isLoading: state.isLoading,
             addProductToCart: addProductToCart,
             getAllProducts: getAllProducts,
             removeProductFromCart: removeProductFromCart,
@@ -450,6 +455,7 @@ var ProductContext = React.createContext({
     products: [],
     cart: [],
     total: 0,
+    isLoading: false,
     addProductToCart: function (product) { },
     removeProductFromCart: function (productId) { },
     filterByCategory: function (productId) { },
@@ -474,8 +480,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-function EmptyProducts() {
-    return (react_1.default.createElement("div", { className: "border w-full py-8 mb-4 rounded px-4 flex items-center text-white justify-center" }, "\uD83D\uDE10 No hay productos disponibles"));
+function EmptyProducts(_a) {
+    var title = _a.title, _b = _a.type, type = _b === void 0 ? 1 : _b;
+    return (react_1.default.createElement("div", { className: "border border-" + (type == 1 ? 'green' : 'red') + "-500 w-full mt-6 py-8 mb-4 rounded px-4 flex items-center text-white justify-center" }, title));
 }
 exports.default = EmptyProducts;
 
@@ -505,34 +512,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var Context_1 = __importDefault(__webpack_require__(/*! ./Context */ "./resources/js/components/Product/Context.tsx"));
 function FilterItem(_a) {
-    var title = _a.title, category = _a.category, filter = _a.filter;
+    var id = _a.id, title = _a.title, category = _a.category, filter = _a.filter, selected = _a.selected, setSelected = _a.setSelected;
+    var selectedItem = "";
+    if (selected == id) {
+        selectedItem = "font-bold text-white";
+    }
     return (react_1.default.createElement("li", { className: "mr-4" },
         react_1.default.createElement("button", { onClick: function () {
                 filter(category);
+                setSelected(id);
             }, className: "font-thin hover:text-white text-gray-150" },
             react_1.default.createElement("span", { className: "text-gray-100" }, "#"),
-            " ",
-            title)));
+            "\u00A0",
+            react_1.default.createElement("span", { className: "" + selectedItem }, title))));
 }
 function Filters() {
     var _a = react_1.useContext(Context_1.default), filterByCategory = _a.filterByCategory, getAllProducts = _a.getAllProducts;
+    var _b = react_1.useState(0), selectedFilterItem = _b[0], setSelectedFilter = _b[1];
     return (react_1.default.createElement("div", { className: "bg-white container rounded-lg mx-auto", style: { background: "#303030" } },
         react_1.default.createElement("div", { className: "max-w-7xl mx-auto py-4 sm:px-6 lg:px-8" },
             react_1.default.createElement("div", { className: "flex justify-between items-center text-sm" },
                 react_1.default.createElement("div", null,
                     react_1.default.createElement("ul", { className: "flex" },
                         react_1.default.createElement("li", { className: "mr-4" },
-                            react_1.default.createElement("button", { onClick: function () { return getAllProducts(); }, className: "font-thin font-bold flex items-center", style: { color: "white" } },
+                            react_1.default.createElement("button", { onClick: function () {
+                                    getAllProducts();
+                                    setSelectedFilter(0);
+                                }, className: "font-thin " + (selectedFilterItem == 0
+                                    ? "font-bold text-white"
+                                    : "text-gray-150") + " flex items-center" },
                                 react_1.default.createElement("svg", { className: "mr-2", width: "16", height: "16", viewBox: "0 0 69 68", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
                                     react_1.default.createElement("path", { d: "M23.396 0.0469055H8.396C6.40687 0.0469055 4.49922 0.837081 3.09269 2.2436C1.68617 3.65013 0.895996 5.55778 0.895996 7.54691V22.5469C0.895996 24.536 1.68617 26.4437 3.09269 27.8502C4.49922 29.2567 6.40687 30.0469 8.396 30.0469H23.396C25.3851 30.0469 27.2928 29.2567 28.6993 27.8502C30.1058 26.4437 30.896 24.536 30.896 22.5469V7.54691C30.896 5.55778 30.1058 3.65013 28.6993 2.2436C27.2928 0.837081 25.3851 0.0469055 23.396 0.0469055ZM60.896 0.0469055H45.896C43.9069 0.0469055 41.9992 0.837081 40.5927 2.2436C39.1862 3.65013 38.396 5.55778 38.396 7.54691V22.5469C38.396 24.536 39.1862 26.4437 40.5927 27.8502C41.9992 29.2567 43.9069 30.0469 45.896 30.0469H60.896C62.8851 30.0469 64.7928 29.2567 66.1993 27.8502C67.6058 26.4437 68.396 24.536 68.396 22.5469V7.54691C68.396 5.55778 67.6058 3.65013 66.1993 2.2436C64.7928 0.837081 62.8851 0.0469055 60.896 0.0469055ZM23.396 37.5469H8.396C6.40687 37.5469 4.49922 38.3371 3.09269 39.7436C1.68617 41.1501 0.895996 43.0578 0.895996 45.0469V60.0469C0.895996 62.036 1.68617 63.9437 3.09269 65.3502C4.49922 66.7567 6.40687 67.5469 8.396 67.5469H23.396C25.3851 67.5469 27.2928 66.7567 28.6993 65.3502C30.1058 63.9437 30.896 62.036 30.896 60.0469V45.0469C30.896 43.0578 30.1058 41.1501 28.6993 39.7436C27.2928 38.3371 25.3851 37.5469 23.396 37.5469ZM60.896 37.5469H45.896C43.9069 37.5469 41.9992 38.3371 40.5927 39.7436C39.1862 41.1501 38.396 43.0578 38.396 45.0469V60.0469C38.396 62.036 39.1862 63.9437 40.5927 65.3502C41.9992 66.7567 43.9069 67.5469 45.896 67.5469H60.896C62.8851 67.5469 64.7928 66.7567 66.1993 65.3502C67.6058 63.9437 68.396 62.036 68.396 60.0469V45.0469C68.396 43.0578 67.6058 41.1501 66.1993 39.7436C64.7928 38.3371 62.8851 37.5469 60.896 37.5469Z", fill: "#56c667" })),
                                 "Mostrar Todo")),
-                        react_1.default.createElement(FilterItem, { filter: filterByCategory, category: 10, title: "Computadoras" }),
-                        react_1.default.createElement(FilterItem, { filter: filterByCategory, category: 11, title: "Telefonos" }),
-                        react_1.default.createElement(FilterItem, { filter: filterByCategory, category: 12, title: "Celulares" }),
-                        react_1.default.createElement(FilterItem, { filter: filterByCategory, category: 13, title: "Impresoras" }),
-                        react_1.default.createElement(FilterItem, { filter: filterByCategory, category: 14, title: "Tarjetas" }),
-                        react_1.default.createElement(FilterItem, { filter: filterByCategory, category: 15, title: "Almacenamiento" }),
-                        react_1.default.createElement(FilterItem, { filter: filterByCategory, category: 16, title: "Im\u00E1genes & Sonido" }))),
+                        react_1.default.createElement(FilterItem, { id: 1, selected: selectedFilterItem, filter: filterByCategory, setSelected: setSelectedFilter, category: 10, title: "Computadoras" }),
+                        react_1.default.createElement(FilterItem, { id: 2, selected: selectedFilterItem, filter: filterByCategory, setSelected: setSelectedFilter, category: 11, title: "Telefonos" }),
+                        react_1.default.createElement(FilterItem, { id: 3, selected: selectedFilterItem, filter: filterByCategory, setSelected: setSelectedFilter, category: 12, title: "Celulares" }),
+                        react_1.default.createElement(FilterItem, { id: 4, selected: selectedFilterItem, filter: filterByCategory, setSelected: setSelectedFilter, category: 13, title: "Impresoras" }),
+                        react_1.default.createElement(FilterItem, { id: 5, selected: selectedFilterItem, filter: filterByCategory, setSelected: setSelectedFilter, category: 14, title: "Tarjetas" }),
+                        react_1.default.createElement(FilterItem, { id: 6, selected: selectedFilterItem, setSelected: setSelectedFilter, filter: filterByCategory, category: 15, title: "Almacenamiento" }),
+                        react_1.default.createElement(FilterItem, { id: 7, setSelected: setSelectedFilter, selected: selectedFilterItem, filter: filterByCategory, category: 16, title: "Im\u00E1genes & Sonido" }))),
                 react_1.default.createElement("div", null,
                     react_1.default.createElement("select", { className: "form-select text-sm text-white bg-gray-1000 border-transparent block w-full" },
                         react_1.default.createElement("option", { value: "Mas Recientes" }, "Mas Recientes"),
@@ -570,12 +588,18 @@ var Card_1 = __importDefault(__webpack_require__(/*! ./Card */ "./resources/js/c
 var Empty_1 = __importDefault(__webpack_require__(/*! ./Empty */ "./resources/js/components/Product/Empty.tsx"));
 function ProductList() {
     var state = react_1.useContext(Context_1.default);
-    return (react_1.default.createElement("div", { className: "mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8" }, state.products.length > 0 ? (state.products.map(function (el) {
+    if (state.isLoading) {
+        return react_1.default.createElement(Empty_1.default, { title: "\uD83D\uDD25 Cargando Productos..." });
+    }
+    else if (state.products.length == 0) {
+        return react_1.default.createElement(Empty_1.default, { type: 0, title: "\uD83D\uDE10 No hay productos disponibles" });
+    }
+    return (react_1.default.createElement("div", { className: "mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8" }, state.products.map(function (el) {
         var id = el.id, name = el.name, price = el.price, category = el.category, cover = el.cover;
         return (react_1.default.createElement(Card_1.default, { key: id, id: id, title: name, cover: cover, price: price, addProduct: function () {
                 return state.addProductToCart({ id: id, name: name, price: price, category: category, cover: cover });
             }, category: category["name"] }));
-    })) : (react_1.default.createElement(Empty_1.default, null))));
+    })));
 }
 exports.default = ProductList;
 
@@ -609,15 +633,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 exports.ADD_PRODUCT = "ADD_PRODUCT";
 exports.REMOVE_PRODUCT = "REMOVE_PRODUCT";
-exports.FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
 exports.ADD_PRODUCTS = "ADD_PRODUCTS";
+exports.SET_LOADING = "SET_LOADING";
 var addProductToCart = function (product, state) {
     var updatedCart = __spreadArrays(state.cart);
     var updatedItemIndex = updatedCart.findIndex(function (item) { return item.id === product.id; });
@@ -646,20 +666,11 @@ var removeProductFromCart = function (productId, state) {
     }
     return __assign(__assign({}, state), { cart: updatedCart, total: total });
 };
-var filterByCategory = function (categoryId, state) {
-    var products = [];
-    axios_1.default
-        .get("/api/categories/" + categoryId + "/products")
-        .then(function (res) {
-        Object.assign(products, res.data.data);
-    })
-        .catch(function (error) {
-        console.log(error);
-    });
-    return __assign(__assign({}, state), { products: products });
-};
 var addProducts = function (products, state) {
     return __assign(__assign({}, state), { products: products });
+};
+var setLoading = function (loading, state) {
+    return __assign(__assign({}, state), { isLoading: loading });
 };
 var sortByMoreRecents = function (state) {
     var sortedProducts = state.products;
@@ -679,10 +690,10 @@ exports.CartReducer = function (state, action) {
             return addProductToCart(action.product, state);
         case exports.REMOVE_PRODUCT:
             return removeProductFromCart(action.productId, state);
-        case exports.FILTER_BY_CATEGORY:
-            return filterByCategory(action.categoryId, state);
         case exports.ADD_PRODUCTS:
             return addProducts(action.products, state);
+        case exports.SET_LOADING:
+            return setLoading(action.loading, state);
         default:
             return state;
     }
