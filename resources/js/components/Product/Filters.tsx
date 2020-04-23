@@ -1,10 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, Suspense } from "react";
+import axios from "axios";
 import ProductContext from "./Context";
-import FilterItem from "./FilterItem";
+const FilterItem = React.lazy(() => import("./FilterItem"));
 
 function Filters() {
   const { filterByCategory, getAllProducts } = useContext(ProductContext);
   const [selectedFilterItem, setSelectedFilter] = useState(0);
+  const [filters, setFilters] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/categories")
+      .then(res => {
+        setFilters(res.data.data);
+      })
+      .catch(e => console.log(e));
+  }, []);
 
   return (
     <div
@@ -43,62 +54,23 @@ function Filters() {
                   Mostrar Todo
                 </button>
               </li>
-              <FilterItem
-                id={1}
-                selected={selectedFilterItem}
-                filter={filterByCategory}
-                setSelected={setSelectedFilter}
-                category={10}
-                title="Computadoras"
-              />
-              <FilterItem
-                id={2}
-                selected={selectedFilterItem}
-                filter={filterByCategory}
-                setSelected={setSelectedFilter}
-                category={11}
-                title="Telefonos"
-              />
-              <FilterItem
-                id={3}
-                selected={selectedFilterItem}
-                filter={filterByCategory}
-                setSelected={setSelectedFilter}
-                category={12}
-                title="Celulares"
-              />
-              <FilterItem
-                id={4}
-                selected={selectedFilterItem}
-                filter={filterByCategory}
-                setSelected={setSelectedFilter}
-                category={13}
-                title="Impresoras"
-              />
-              <FilterItem
-                id={5}
-                selected={selectedFilterItem}
-                filter={filterByCategory}
-                setSelected={setSelectedFilter}
-                category={14}
-                title="Tarjetas"
-              />
-              <FilterItem
-                id={6}
-                selected={selectedFilterItem}
-                setSelected={setSelectedFilter}
-                filter={filterByCategory}
-                category={15}
-                title="Almacenamiento"
-              />
-              <FilterItem
-                id={7}
-                setSelected={setSelectedFilter}
-                selected={selectedFilterItem}
-                filter={filterByCategory}
-                category={16}
-                title="Imágenes & Sonido"
-              />
+
+              <Suspense
+                fallback={
+                  <span className="text-white">Cargando lista de filtros</span>
+                }
+              >
+                {filters.map(({ id, name }) => (
+                  <FilterItem
+                    id={id}
+                    selected={selectedFilterItem}
+                    filter={filterByCategory}
+                    setSelected={setSelectedFilter}
+                    category={id}
+                    title={name}
+                  />
+                ))}
+              </Suspense>
             </ul>
           </div>
           <div>

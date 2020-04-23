@@ -22,7 +22,7 @@ function Card({ id, title, price, category, cover, addProduct }) {
       </div>
       <p className="text-xs text-gray-200">
         Por&nbsp;
-        <span className="font-bold hover:underline cursor-pointer">
+        <span className="font-medium hover:underline cursor-pointer">
         Luis Alvarado&nbsp;
         </span>
         en&nbsp;

@@ -9,7 +9,7 @@ $factory->define(Product::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'cover' => $faker->imageUrl(),
-        'category_id' => factory(Category::class),
+        'category_id' => $faker->randomElement([1,2,3,4,5,6,7]),
         'description' => $faker->paragraph(2, true),
         'specifications' => $faker->text,
         'price' => $faker->randomFloat(NULL, 10, 200),
