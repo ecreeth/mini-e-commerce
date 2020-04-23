@@ -24,7 +24,7 @@ function Filters() {
       className="bg-white container rounded-t-lg mx-auto"
       style={{ background: "#303030" }}
     >
-      <div className="max-w-7xl mx-auto py-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-4 sm:px-6 lg:px-6">
         <div className="flex justify-between items-center text-sm">
           <div>
             <ul className="flex">
