@@ -23,7 +23,7 @@ function GlobalStateProvider({ children }) {
     await axios
       .get(url)
       .then(res => {
-        addProducts(res.data.data);
+        addProducts(res.data);
         dispatch({ type: SET_LOADING, loading: false });
       })
       .catch(error => {

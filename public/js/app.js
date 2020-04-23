@@ -342,7 +342,7 @@ function GlobalStateProvider(_a) {
                     return [4 /*yield*/, axios_1.default
                             .get(url)
                             .then(function (res) {
-                            addProducts(res.data.data);
+                            addProducts(res.data);
                             dispatch({ type: reducer_1.SET_LOADING, loading: false });
                         })
                             .catch(function (error) {
@@ -555,7 +555,7 @@ function Filters() {
         })
             .catch(function (e) { return console.log(e); });
     }, []);
-    return (react_1.default.createElement("div", { className: "bg-white container rounded-lg mx-auto", style: { background: "#303030" } },
+    return (react_1.default.createElement("div", { className: "bg-white container rounded-t-lg mx-auto", style: { background: "#303030" } },
         react_1.default.createElement("div", { className: "max-w-7xl mx-auto py-4 sm:px-6 lg:px-8" },
             react_1.default.createElement("div", { className: "flex justify-between items-center text-sm" },
                 react_1.default.createElement("div", null,
@@ -609,20 +609,31 @@ var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/reac
 var Context_1 = __importDefault(__webpack_require__(/*! ./Context */ "./resources/js/components/Product/Context.tsx"));
 var Card_1 = __importDefault(__webpack_require__(/*! ./Card */ "./resources/js/components/Product/Card.tsx"));
 var Empty_1 = __importDefault(__webpack_require__(/*! ./Empty */ "./resources/js/components/Product/Empty.tsx"));
+var CountResults = function (_a) {
+    var count = _a.count, total = _a.total;
+    return (react_1.default.createElement("h1", { className: "text-white text-xs pt-2 text-center py-2 bg-gray-1000" },
+        "Mostrando (\u00A0",
+        react_1.default.createElement("strong", { className: "text-green-500" }, count),
+        "\u00A0) de ",
+        total,
+        " registros"));
+};
 function ProductList() {
     var state = react_1.useContext(Context_1.default);
     if (state.isLoading) {
         return react_1.default.createElement(Empty_1.default, { title: "\uD83D\uDD25 Cargando Productos..." });
     }
-    else if (state.products.length == 0) {
+    else if (state.products.data.length == 0) {
         return react_1.default.createElement(Empty_1.default, { type: 0, title: "\uD83D\uDE10 No hay productos disponibles" });
     }
-    return (react_1.default.createElement("div", { className: "mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8" }, state.products.map(function (el) {
-        var id = el.id, name = el.name, price = el.price, category = el.category, cover = el.cover;
-        return (react_1.default.createElement(Card_1.default, { key: id, id: id, title: name, cover: cover, price: price, addProduct: function () {
-                return state.addProductToCart({ id: id, name: name, price: price, category: category, cover: cover });
-            }, category: category["name"] }));
-    })));
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement(CountResults, { total: state.products.meta.total, count: state.products.data.length }),
+        react_1.default.createElement("div", { className: "mt-10 grid lg:grid-cols-4 sm:grid-cols-2 row-gap-8 col-gap-8" }, state.products.data.map(function (el) {
+            var id = el.id, name = el.name, price = el.price, category = el.category, cover = el.cover;
+            return (react_1.default.createElement(Card_1.default, { key: id, id: id, title: name, cover: cover, price: price, addProduct: function () {
+                    return state.addProductToCart({ id: id, name: name, price: price, category: category, cover: cover });
+                }, category: category["name"] }));
+        }))));
 }
 exports.default = ProductList;
 

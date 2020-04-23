@@ -19,7 +19,7 @@ function Filters() {
 
   return (
     <div
-      className="bg-white container rounded-lg mx-auto"
+      className="bg-white container rounded-t-lg mx-auto"
       style={{ background: "#303030" }}
     >
       <div className="max-w-7xl mx-auto py-4 sm:px-6 lg:px-8">

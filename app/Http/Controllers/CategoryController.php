@@ -14,7 +14,7 @@ class CategoryController extends Controller
    */
   public function index()
   {
-    return CategoryResource::collection(Category::all());
+    return CategoryResource::collection(Category::paginate(10));
   }
 
   /**
@@ -24,7 +24,7 @@ class CategoryController extends Controller
   public function categoryProducts(int $category)
   {
     return ProductResource::collection(
-      Product::where('category_id', $category)->get()
+      Product::where('category_id', $category)->paginate(10)
     );
   }
 
