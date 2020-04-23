@@ -510,14 +510,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function FilterItem(_a) {
     var id = _a.id, title = _a.title, category = _a.category, filter = _a.filter, selected = _a.selected, setSelected = _a.setSelected;
+    var isSelected = selected == id;
     return (react_1.default.createElement("li", { className: "mr-4" },
-        react_1.default.createElement("button", { onClick: function () {
+        react_1.default.createElement("button", { disabled: isSelected, onClick: function () {
                 filter(category);
                 setSelected(id);
             }, className: "font-thin hover:text-white text-gray-150" },
             react_1.default.createElement("span", { className: "text-gray-100" }, "#"),
             "\u00A0",
-            react_1.default.createElement("span", { className: "" + (selected == id ? "font-bold text-white" : "") }, title))));
+            react_1.default.createElement("span", { className: "" + (isSelected ? "font-bold text-white" : "") }, title))));
 }
 exports.default = FilterItem;
 
