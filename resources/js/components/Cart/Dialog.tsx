@@ -22,6 +22,7 @@ function DialogCart(props) {
           {isCartEmpty ? (
             cart.map(item => (
               <CartItem
+                loading={isSaving}
                 key={item["id"]}
                 removeItem={removeProductFromCart}
                 {...item}

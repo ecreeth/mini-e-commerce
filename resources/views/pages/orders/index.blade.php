@@ -34,6 +34,7 @@
             <tr class="border-b">
               <th class="px-4 py-2"># Orden</th>
               <th class="px-4 py-2">Fecha de creaci&oacute;n</th>
+              <th class="px-4 py-2">Entrega</th>
               <th class="px-4 py-2">Estado</th>
               <th class="px-4 py-2">Total</th>
               <th class="px-4 py-2"></th>
@@ -42,19 +43,20 @@
           <tbody>
             @forelse ($orders as $order)
               <tr>
-                <td class="border-b px-4 py-2">0301234{{ $order->id}}</td>
+                <td class="border-b px-4 py-2">{{ $order->id}}</td>
                 <td class="border-b px-4 py-2">{{ $order->created_at }}</td>
                 <td class="border-b px-4 py-2">Pendiente</td>
+                <td class="border-b px-4 py-2">{{ $order->status }}</td>
                 <td class="border-b px-4 py-2">RD${{  number_format($order->total, 2, '.', ',') }}</td>
                 <td class="border-b px-4 py-2 text-sm text-center">
                   <a href="#" class="underline text-blue-500 mr-2">Ver Orden</a>
-                  <a href="#" class="underline text-red-500">Cancelar</a>
+                  <a href="#" onclick="cancelOrder({{ $order->id }})" class="underline text-red-500">Cancelar</a>
                 </td>
               </tr>
               @empty
-                 <tr>
-                   <td class="p-20" colspan="5">😥 No tienes ordenes realizadas</td>
-                  </tr>
+                <tr>
+                <td class="p-20" colspan="5">😥 No tienes ordenes realizadas</td>
+              </tr>
             @endforelse
           </tbody>
         </table>
@@ -62,4 +64,16 @@
       </div>
     </div>
   </div>
+  <script>
+      function cancelOrder(id){
+       if(confirm('Deseas eliminar esta orden?')){
+          window.axios.delete(`/api/order/${id}`)
+          .then(res => {
+            alert('La orden ha sido eliminada con exito!');
+            window.location.reload();
+          })
+          .catch(error => console.log(error));
+       }
+      }
+  </script>
 @endsection

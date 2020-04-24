@@ -1,7 +1,7 @@
 import React from "react";
 import cogoToast from "cogo-toast";
 
-function CartItem({ id, name, quantity, price, removeItem }) {
+function CartItem({ id, name, quantity, price, removeItem, loading }) {
   return (
     <div className="border border-gray-200 py-1 mb-1 rounded pl-4 pr-2 flex items-center justify-between">
       <div className="text-sm">
@@ -14,6 +14,7 @@ function CartItem({ id, name, quantity, price, removeItem }) {
         </span>
       </div>
       <button
+        disabled={loading}
         onClick={() => {
           removeItem(id);
           cogoToast.success(

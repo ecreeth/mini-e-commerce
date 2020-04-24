@@ -26,7 +26,20 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 __webpack_require__(/*! ./components/App */ "./resources/js/components/App.tsx");
+__webpack_require__(/*! ./bootsrap */ "./resources/js/bootsrap.js");
 
+
+/***/ }),
+
+/***/ "./resources/js/bootsrap.js":
+/*!**********************************!*\
+  !*** ./resources/js/bootsrap.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
@@ -152,7 +165,7 @@ function DialogCart(props) {
     var isCartEmpty = cart.length > 0 ? true : false;
     return (react_1.default.createElement(dialog_1.Dialog, { isOpen: props.show, onDismiss: props.close },
         react_1.default.createElement("div", { className: "flex items-center" },
-            react_1.default.createElement("div", { className: "w-full" }, isCartEmpty ? (cart.map(function (item) { return (react_1.default.createElement(Item_1.default, __assign({ key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(Empty_1.default, null))),
+            react_1.default.createElement("div", { className: "w-full" }, isCartEmpty ? (cart.map(function (item) { return (react_1.default.createElement(Item_1.default, __assign({ loading: isSaving, key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(Empty_1.default, null))),
             isCartEmpty && (react_1.default.createElement(CheckOut_1.default, __assign({ loading: isSaving, completeOrder: completeOrder, total: total }, props)))),
         react_1.default.createElement("button", { className: "bg-gray-800 mt-6 text-white font-bold rounded py-2 px-4", onClick: props.close }, "Cerrar")));
 }
@@ -199,7 +212,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var cogo_toast_1 = __importDefault(__webpack_require__(/*! cogo-toast */ "./node_modules/cogo-toast/dist/index.es.js"));
 function CartItem(_a) {
-    var id = _a.id, name = _a.name, quantity = _a.quantity, price = _a.price, removeItem = _a.removeItem;
+    var id = _a.id, name = _a.name, quantity = _a.quantity, price = _a.price, removeItem = _a.removeItem, loading = _a.loading;
     return (react_1.default.createElement("div", { className: "border border-gray-200 py-1 mb-1 rounded pl-4 pr-2 flex items-center justify-between" },
         react_1.default.createElement("div", { className: "text-sm" },
             react_1.default.createElement("h2", { className: "font-bold" }, name),
@@ -211,7 +224,7 @@ function CartItem(_a) {
             react_1.default.createElement("span", { className: "w-6 h-6 text-center" },
                 "Cantidad: ",
                 react_1.default.createElement("span", { className: "underline" }, quantity))),
-        react_1.default.createElement("button", { onClick: function () {
+        react_1.default.createElement("button", { disabled: loading, onClick: function () {
                 removeItem(id);
                 cogo_toast_1.default.success(react_1.default.createElement("span", null,
                     "Has eliminado: ",

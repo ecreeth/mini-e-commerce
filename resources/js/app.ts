@@ -5,3 +5,4 @@
  */
 
 require("./components/App");
+require('./bootsrap');
