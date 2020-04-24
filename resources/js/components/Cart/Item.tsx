@@ -7,10 +7,10 @@ function CartItem({ id, name, quantity, price, removeItem }) {
       <div className="text-sm">
         <h2 className="font-bold">{name}</h2>
         <span className="pr-2">
-          Precio: <span className="text-blue-700">${price}</span>
+          Precio: <span className="underline">${price}</span>
         </span>
         <span className="w-6 h-6 text-center">
-          Cantidad: <span className="text-blue-700">{quantity}</span>
+          Cantidad: <span className="underline">{quantity}</span>
         </span>
       </div>
       <button
