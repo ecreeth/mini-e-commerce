@@ -407,14 +407,28 @@ exports.default = GlobalStateProvider;
 
 "use strict";
 
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var cogo_toast_1 = __importDefault(__webpack_require__(/*! cogo-toast */ "./node_modules/cogo-toast/dist/index.es.js"));
+var Context_1 = __importDefault(__webpack_require__(/*! ./Context */ "./resources/js/components/Product/Context.tsx"));
 function Card(_a) {
     var id = _a.id, title = _a.title, price = _a.price, category = _a.category, cover = _a.cover, addProduct = _a.addProduct;
+    var state = react_1.useContext(Context_1.default);
+    var quantity = 0;
+    var item = state.cart.find(function (item) { return item.id === id; });
+    if (item) {
+        quantity = item.quantity;
+    }
     return (react_1.default.createElement("div", { className: "product-card-container relative" },
         react_1.default.createElement("img", { src: "/images/computer.png", className: "object-cover w-full shadow-sm h-48 rounded-lg mb-px" }),
         react_1.default.createElement("div", { className: "flex justify-between mt-2 items-center text-white" },
@@ -429,7 +443,9 @@ function Card(_a) {
             react_1.default.createElement("a", { href: "#", className: "font-bold hover:underline", style: { color: "rgb(86, 198, 109)" } }, category)),
         react_1.default.createElement("div", { className: "absolute top-0 rounded-lg right-0 w-full h-48 bg-gray-300 hidden product-card-hover" },
             react_1.default.createElement("div", { className: "flex flex-col items-center justify-center h-full text-sm" },
-                react_1.default.createElement("img", { className: "h-6", src: "/images/icon-cart.svg", alt: "" }),
+                react_1.default.createElement("div", { className: "relative" },
+                    react_1.default.createElement("img", { className: "h-6", src: "/images/icon-cart.svg", alt: "" }),
+                    quantity > 0 && (react_1.default.createElement("span", { className: "text-white w-5 h-5 flex items-center bg-gray-800 justify-center rounded-full absolute top-0 right-0 -mt-5 -mr-5" }, quantity))),
                 react_1.default.createElement("button", { onClick: function () {
                         addProduct();
                         cogo_toast_1.default.success(react_1.default.createElement("span", null,
