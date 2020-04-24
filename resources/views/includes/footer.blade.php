@@ -1,5 +1,5 @@
 <footer>
-  <div class="h-24 mt-6" style="background-color: #1D1D1D;">
+  <div class="h-64 mt-6" style="background-color: #1D1D1D;">
 
   </div>
 </footer>

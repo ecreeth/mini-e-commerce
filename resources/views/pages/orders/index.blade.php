@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-  <div class="flex">
+  <div class="flex" style="min-height: 50vh;">
     <div class="w-1/4 bg-gray-850 text-white rounded p-4 mr-6">
       <div class="bg-gray-1000 h-12 rounded mb-4"></div>
       <ul>
