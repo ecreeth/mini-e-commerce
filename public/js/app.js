@@ -91,13 +91,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function CheckOut(props) {
     var total = new Intl.NumberFormat("en-IN").format(props.total);
-    return (react_1.default.createElement("div", { className: "ml-4 border w-2/5 h-48 bg-gray-100 rounded text-center px-4 py-3" },
-        react_1.default.createElement("h2", { className: "mt-2 text-lg" }, "Total a pagar:"),
-        react_1.default.createElement("p", { className: "text-xl font-bold p-2" },
-            "$",
-            total),
-        react_1.default.createElement("button", { className: "mt-2 text-white font-bold rounded py-2 px-8", style: { background: "#82b440" }, onClick: props.close }, "Completar Orden"),
-        react_1.default.createElement("p", { className: "text-xs text-gray-700 text-center mt-4" }, "\u00B7 Impuestos incluidos")));
+    return (react_1.default.createElement("div", { className: "w-2/5" },
+        react_1.default.createElement("img", { className: "h-12 mx-auto pb-2", src: "/images/logo.svg", alt: "Logo" }),
+        react_1.default.createElement("div", { className: "ml-4 border h-48 bg-gray-100 rounded text-center px-4 py-3" },
+            react_1.default.createElement("h2", { className: "mt-2 text-lg" }, "Total a pagar:"),
+            react_1.default.createElement("p", { className: "text-xl font-bold p-2" },
+                "$",
+                total),
+            react_1.default.createElement("button", { className: "mt-2 text-white font-bold rounded py-2 px-8", style: { background: "#82b440" }, onClick: props.close }, "Completar Orden"),
+            react_1.default.createElement("p", { className: "text-xs text-gray-700 text-center mt-4" }, "\u00B7 Impuestos incluidos"))));
 }
 exports.default = CheckOut;
 
@@ -146,7 +148,7 @@ function DialogCart(props) {
     var _a = react_1.useContext(Context_1.default), removeProductFromCart = _a.removeProductFromCart, cart = _a.cart, total = _a.total;
     var isCartEmpty = cart.length > 0 ? true : false;
     return (react_1.default.createElement(dialog_1.Dialog, { isOpen: props.show, onDismiss: props.close },
-        react_1.default.createElement("div", { className: "flex" },
+        react_1.default.createElement("div", { className: "flex items-center" },
             react_1.default.createElement("div", { className: "w-full" }, isCartEmpty ? (cart.map(function (item) { return (react_1.default.createElement(Item_1.default, __assign({ key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(Empty_1.default, null))),
             isCartEmpty && react_1.default.createElement(CheckOut_1.default, __assign({ total: total }, props))),
         react_1.default.createElement("button", { className: "bg-gray-800 mt-6 text-white font-bold rounded py-2 px-4", onClick: props.close }, "Cerrar")));
@@ -195,24 +197,28 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 var cogo_toast_1 = __importDefault(__webpack_require__(/*! cogo-toast */ "./node_modules/cogo-toast/dist/index.es.js"));
 function CartItem(_a) {
     var id = _a.id, name = _a.name, quantity = _a.quantity, price = _a.price, removeItem = _a.removeItem;
-    return (react_1.default.createElement("div", { className: "border border-gray-200 py-2 mb-2 rounded px-4 flex items-center justify-between" },
-        react_1.default.createElement("div", null,
+    return (react_1.default.createElement("div", { className: "border border-gray-200 py-1 mb-1 rounded pl-4 pr-2 flex items-center justify-between" },
+        react_1.default.createElement("div", { className: "text-sm" },
             react_1.default.createElement("h2", { className: "font-bold" }, name),
-            react_1.default.createElement("span", { className: "text-sm pr-2" },
+            react_1.default.createElement("span", { className: "pr-2" },
                 "Precio: ",
-                react_1.default.createElement("strong", null,
+                react_1.default.createElement("span", { className: "text-blue-700" },
                     "$",
                     price)),
-            react_1.default.createElement("span", { className: "w-6 h-6 text-sm text-center" },
+            react_1.default.createElement("span", { className: "w-6 h-6 text-center" },
                 "Cantidad: ",
-                react_1.default.createElement("strong", null, quantity))),
+                react_1.default.createElement("span", { className: "text-blue-700" }, quantity))),
         react_1.default.createElement("button", { onClick: function () {
                 removeItem(id);
                 cogo_toast_1.default.success(react_1.default.createElement("span", null,
                     "Has eliminado: ",
                     react_1.default.createElement("strong", null, name),
                     " de tu carrito!"), { position: "bottom-right" });
-            }, className: "bg-red-700 text-sm text-white font-medium rounded px-4 py-2" }, "Eliminar del carrito")));
+            }, className: "bg-red-700 hover:bg-red-800 text-sm text-white flex items-center justify-center font-medium rounded px-4 py-2" },
+            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", className: "mr-2 fill-current text-gray-200", viewBox: "0 0 24 24", width: "18", height: "18" },
+                react_1.default.createElement("path", { className: "heroicon-ui", d: "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z" })),
+            " ",
+            "Eliminar del carrito")));
 }
 exports.default = CartItem;
 

@@ -11,7 +11,7 @@ function DialogCart(props) {
   const isCartEmpty = cart.length > 0 ? true : false;
   return (
     <Dialog isOpen={props.show} onDismiss={props.close}>
-      <div className="flex">
+      <div className="flex items-center">
         <div className="w-full">
           {isCartEmpty ? (
             cart.map(item => (
