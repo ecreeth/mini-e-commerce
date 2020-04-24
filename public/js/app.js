@@ -445,7 +445,7 @@ function Card(_a) {
             react_1.default.createElement("div", { className: "flex flex-col items-center justify-center h-full text-sm" },
                 react_1.default.createElement("div", { className: "relative" },
                     react_1.default.createElement("img", { className: "h-6", src: "/images/icon-cart.svg", alt: "" }),
-                    quantity > 0 && (react_1.default.createElement("span", { className: "text-white w-5 h-5 flex items-center bg-gray-800 justify-center rounded-full absolute top-0 right-0 -mt-5 -mr-5" }, quantity))),
+                    quantity > 0 && (react_1.default.createElement("span", { className: "text-white w-5 h-5 flex items-center bg-gray-800 justify-center rounded-full absolute top-0 right-0 -mt-4 -mr-5" }, quantity))),
                 react_1.default.createElement("button", { onClick: function () {
                         addProduct();
                         cogo_toast_1.default.success(react_1.default.createElement("span", null,

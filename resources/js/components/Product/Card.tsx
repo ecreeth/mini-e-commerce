@@ -48,7 +48,7 @@ function Card({ id, title, price, category, cover, addProduct }) {
           <div className="relative">
             <img className="h-6" src="/images/icon-cart.svg" alt="" />
             {quantity > 0 && (
-              <span className="text-white w-5 h-5 flex items-center bg-gray-800 justify-center rounded-full absolute top-0 right-0 -mt-5 -mr-5">
+              <span className="text-white w-5 h-5 flex items-center bg-gray-800 justify-center rounded-full absolute top-0 right-0 -mt-4 -mr-5">
                 {quantity}
               </span>
             )}
