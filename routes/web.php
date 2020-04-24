@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'home');
+Route::get('/user/{user}/orders', 'OrderController@index');
 
 // Auth::routes();

@@ -16,8 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->decimal("total", 6, 2);
-            $table->decimal("sub_total", 6, 2);
+            $table->decimal("total");
+            $table->decimal("sub_total");
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });

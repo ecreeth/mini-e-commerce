@@ -14,6 +14,7 @@ class Order extends Model
   protected $fillable = [
     'total', 'sub_total', 'completed_at'
   ];
+
   public function user()
   {
     return $this->belongsTo(User::class);
