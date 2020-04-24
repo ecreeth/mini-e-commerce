@@ -27,7 +27,23 @@ class OrderController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    $user = User::findOrFail(1);
+    $order = $user
+      ->orders()
+      ->create([
+        'total' => $request->total,
+        'sub_total' => $request->total,
+      ]);
+
+    array_map(function ($product) use ($order) {
+      $order->products()->attach([
+        $product['id'] => ['quantity' => $product['quantity']]
+      ]);
+    }, $request->products);
+
+    return [
+      'message' => 'La orden ha sido creada con exito!'
+    ];
   }
 
   /**

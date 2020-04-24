@@ -7,7 +7,13 @@ import CheckOut from "./CheckOut";
 import EmptyCart from "./Empty";
 
 function DialogCart(props) {
-  const { removeProductFromCart, cart, total } = useContext(ProductContext);
+  const {
+    removeProductFromCart,
+    completeOrder,
+    isSaving,
+    cart,
+    total
+  } = useContext(ProductContext);
   const isCartEmpty = cart.length > 0 ? true : false;
   return (
     <Dialog isOpen={props.show} onDismiss={props.close}>
@@ -25,7 +31,14 @@ function DialogCart(props) {
             <EmptyCart />
           )}
         </div>
-        {isCartEmpty && <CheckOut total={total} {...props} />}
+        {isCartEmpty && (
+          <CheckOut
+            loading={isSaving}
+            completeOrder={completeOrder}
+            total={total}
+            {...props}
+          />
+        )}
       </div>
 
       <button

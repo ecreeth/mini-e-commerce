@@ -89,16 +89,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-function CheckOut(props) {
-    var total = new Intl.NumberFormat("en-IN").format(props.total);
+function CheckOut(_a) {
+    var total = _a.total, loading = _a.loading, completeOrder = _a.completeOrder;
+    var totalValue = new Intl.NumberFormat("en-IN").format(total);
     return (react_1.default.createElement("div", { className: "w-2/5" },
         react_1.default.createElement("img", { className: "h-12 mx-auto pb-2", src: "/images/logo.svg", alt: "Logo" }),
         react_1.default.createElement("div", { className: "ml-4 border h-48 bg-gray-100 rounded text-center px-4 py-3" },
             react_1.default.createElement("h2", { className: "mt-2 text-lg" }, "Total a pagar:"),
             react_1.default.createElement("p", { className: "text-xl font-bold p-2" },
                 "$",
-                total),
-            react_1.default.createElement("button", { className: "mt-2 text-white font-bold rounded py-2 px-8", style: { background: "#82b440" }, onClick: props.close }, "Completar Orden"),
+                totalValue),
+            react_1.default.createElement("button", { disabled: loading, className: "mt-2 text-white font-bold rounded py-2 px-8", style: { background: "#82b440" }, onClick: function () {
+                    completeOrder();
+                } }, loading ? "Guardando..." : "Completar Orden"),
             react_1.default.createElement("p", { className: "text-xs text-gray-700 text-center mt-4" }, "\u00B7 Impuestos incluidos"))));
 }
 exports.default = CheckOut;
@@ -145,12 +148,12 @@ var Item_1 = __importDefault(__webpack_require__(/*! ./Item */ "./resources/js/c
 var CheckOut_1 = __importDefault(__webpack_require__(/*! ./CheckOut */ "./resources/js/components/Cart/CheckOut.tsx"));
 var Empty_1 = __importDefault(__webpack_require__(/*! ./Empty */ "./resources/js/components/Cart/Empty.tsx"));
 function DialogCart(props) {
-    var _a = react_1.useContext(Context_1.default), removeProductFromCart = _a.removeProductFromCart, cart = _a.cart, total = _a.total;
+    var _a = react_1.useContext(Context_1.default), removeProductFromCart = _a.removeProductFromCart, completeOrder = _a.completeOrder, isSaving = _a.isSaving, cart = _a.cart, total = _a.total;
     var isCartEmpty = cart.length > 0 ? true : false;
     return (react_1.default.createElement(dialog_1.Dialog, { isOpen: props.show, onDismiss: props.close },
         react_1.default.createElement("div", { className: "flex items-center" },
             react_1.default.createElement("div", { className: "w-full" }, isCartEmpty ? (cart.map(function (item) { return (react_1.default.createElement(Item_1.default, __assign({ key: item["id"], removeItem: removeProductFromCart }, item))); })) : (react_1.default.createElement(Empty_1.default, null))),
-            isCartEmpty && react_1.default.createElement(CheckOut_1.default, __assign({ total: total }, props))),
+            isCartEmpty && (react_1.default.createElement(CheckOut_1.default, __assign({ loading: isSaving, completeOrder: completeOrder, total: total }, props)))),
         react_1.default.createElement("button", { className: "bg-gray-800 mt-6 text-white font-bold rounded py-2 px-4", onClick: props.close }, "Cerrar")));
 }
 exports.default = DialogCart;
@@ -258,8 +261,9 @@ function Cart(props) {
                 react_1.default.createElement("span", { className: "text-sm" },
                     "\u00B7 \u00A0$",
                     total)),
-            react_1.default.createElement("span", { className: "bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center absolute top-0 -mt-3 right-0 -mr-3" }, state.cart.reduce(function (count, item) {
-                return count + item["quantity"];
+            react_1.default.createElement("span", { className: "bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center absolute top-0 -mt-3 right-0 -mr-3" }, state.cart.reduce(function (count, _a) {
+                var quantity = _a.quantity;
+                return count + quantity;
             }, 0)))));
 }
 exports.default = Cart;
@@ -330,6 +334,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var Context_1 = __importDefault(__webpack_require__(/*! ./Product/Context */ "./resources/js/components/Product/Context.tsx"));
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
+var cogo_toast_1 = __importDefault(__webpack_require__(/*! cogo-toast */ "./node_modules/cogo-toast/dist/index.es.js"));
 var reducer_1 = __webpack_require__(/*! ./reducer */ "./resources/js/components/reducer.ts");
 function GlobalStateProvider(_a) {
     var _this = this;
@@ -338,7 +343,8 @@ function GlobalStateProvider(_a) {
         cart: [],
         products: [],
         total: 0,
-        isLoading: true
+        isLoading: true,
+        isSaving: false
     }), state = _b[0], dispatch = _b[1];
     var fetchProduct = function (url) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -381,11 +387,31 @@ function GlobalStateProvider(_a) {
     var sortProductBy = function (type) {
         fetchProduct("/api/products/order/" + type);
     };
+    var completeOrder = function () {
+        dispatch({ type: reducer_1.SET_LOADING_SAVING, loading: true });
+        var total = 0;
+        var products = state.cart.flatMap(function (el) {
+            total += Number(el.price) * Number(el.quantity);
+            return { id: el.id, quantity: el.quantity };
+        });
+        cogo_toast_1.default.loading("Guardando la orden...").then(function () {
+            axios_1.default
+                .post("/api/order", { products: products, total: total })
+                .then(function (res) {
+                dispatch({ type: reducer_1.SET_EMPTY_CART });
+                dispatch({ type: reducer_1.SET_LOADING_SAVING, loading: false });
+            })
+                .catch(function (error) { return console.log(error); });
+            cogo_toast_1.default.success("Su orden ha sido guardada con exito!");
+        });
+    };
     return (react_1.default.createElement(Context_1.default.Provider, { value: {
             products: state.products,
             total: state.total,
             cart: state.cart,
+            isSaving: state.isSaving,
             isLoading: state.isLoading,
+            completeOrder: completeOrder,
             addProductToCart: addProductToCart,
             getAllProducts: getAllProducts,
             removeProductFromCart: removeProductFromCart,
@@ -482,11 +508,13 @@ var ProductContext = React.createContext({
     cart: [],
     total: 0,
     isLoading: false,
+    isSaving: false,
     addProductToCart: function (product) { },
     removeProductFromCart: function (productId) { },
     filterByCategory: function (productId) { },
     getAllProducts: function () { },
-    sortProductBy: function (type) { }
+    sortProductBy: function (type) { },
+    completeOrder: function () { }
 });
 exports.default = ProductContext;
 
@@ -733,6 +761,8 @@ exports.ADD_PRODUCT = "ADD_PRODUCT";
 exports.REMOVE_PRODUCT = "REMOVE_PRODUCT";
 exports.ADD_PRODUCTS = "ADD_PRODUCTS";
 exports.SET_LOADING = "SET_LOADING";
+exports.SET_LOADING_SAVING = "SET_LOADING_SAVING";
+exports.SET_EMPTY_CART = "SET_EMPTY_CART";
 var addProductToCart = function (product, state) {
     var updatedCart = __spreadArrays(state.cart);
     var updatedItemIndex = updatedCart.findIndex(function (item) { return item.id === product.id; });
@@ -767,6 +797,12 @@ var addProducts = function (products, state) {
 var setLoading = function (loading, state) {
     return __assign(__assign({}, state), { isLoading: loading });
 };
+var setLoadingSaving = function (loading, state) {
+    return __assign(__assign({}, state), { isSaving: loading });
+};
+var setEmptyCard = function (state) {
+    return __assign(__assign({}, state), { cart: [], total: 0.00 });
+};
 exports.CartReducer = function (state, action) {
     switch (action.type) {
         case exports.ADD_PRODUCT:
@@ -777,6 +813,10 @@ exports.CartReducer = function (state, action) {
             return addProducts(action.products, state);
         case exports.SET_LOADING:
             return setLoading(action.loading, state);
+        case exports.SET_LOADING_SAVING:
+            return setLoadingSaving(action.loading, state);
+        case exports.SET_EMPTY_CART:
+            return setEmptyCard(state);
         default:
             return state;
     }

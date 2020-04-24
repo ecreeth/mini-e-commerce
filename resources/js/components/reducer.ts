@@ -2,6 +2,8 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 export const ADD_PRODUCTS = "ADD_PRODUCTS";
 export const SET_LOADING = "SET_LOADING";
+export const SET_LOADING_SAVING = "SET_LOADING_SAVING";
+export const SET_EMPTY_CART = "SET_EMPTY_CART";
 
 const addProductToCart = (product, state) => {
   const updatedCart = [...state.cart];
@@ -45,6 +47,12 @@ const addProducts = (products, state) => {
 const setLoading = (loading, state) => {
   return { ...state, isLoading: loading };
 };
+const setLoadingSaving = (loading, state) => {
+  return { ...state, isSaving: loading };
+};
+const setEmptyCard = state => {
+  return { ...state, cart: [], total: 0.00 };
+};
 
 export const CartReducer = (state, action) => {
   switch (action.type) {
@@ -56,6 +64,10 @@ export const CartReducer = (state, action) => {
       return addProducts(action.products, state);
     case SET_LOADING:
       return setLoading(action.loading, state);
+    case SET_LOADING_SAVING:
+      return setLoadingSaving(action.loading, state);
+    case SET_EMPTY_CART:
+      return setEmptyCard(state);
     default:
       return state;
   }

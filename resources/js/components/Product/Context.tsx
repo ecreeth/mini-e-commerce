@@ -5,11 +5,13 @@ const ProductContext = React.createContext({
   cart: [],
   total: 0,
   isLoading: false,
+  isSaving: false,
   addProductToCart: product => {},
   removeProductFromCart: productId => {},
   filterByCategory: productId => {},
   getAllProducts: () => {},
-  sortProductBy: type => {}
+  sortProductBy: type => {},
+  completeOrder: () => {}
 });
 
 export default ProductContext;

@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('/products', 'ProductController');
 Route::get('/products/order/{type}', 'ProductController@orderBy');
 
+Route::apiResource('/order', 'OrderController');
 Route::apiResource('/categories', 'CategoryController');
 Route::get('/categories/{category}/products', 'CategoryController@categoryProducts');
