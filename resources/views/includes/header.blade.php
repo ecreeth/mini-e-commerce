@@ -7,20 +7,19 @@
         </a>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline">
-            <x-link.page to="Home" />
-            <x-link.page to="Categor&iacute;as" />
-            <x-link.page to="Ofertas" />
-            <x-link.page to="Acerca de" />
-            <x-link.page to="Contacto" />
+            <x-link.page url="#" to="Home" />
+            <x-link.page url="#" to="Categor&iacute;as" />
+            <x-link.page url="#" to="Ofertas" />
+            <x-link.page url="#" to="Acerca de" />
+            <x-link.page url="#" to="Contacto" />
           </div>
         </div>
       </div>
       <div class="hidden md:block">
-        <div class="ml-4 flex items-center md:ml-6 mt-2">
-
+        <div class="flex items-center md:ml-6 mt-2">
+          <x-link.page url="/user/ecreeth/orders" to="Mis Ordenes" class="mt-1 bg-gray-850" />
           <!-- Profile dropdown -->
           <x-dropdown.profile />
-
         </div>
       </div>
       <div class="-mr-2 flex md:hidden">
@@ -46,10 +45,10 @@
   -->
   <div class="hidden md:hidden">
     <div class="px-2 pt-2 pb-3 sm:px-3">
-      <x-link.page class="mt-1 block text-base font-medium" to="Home" />
-      <x-link.page class="mt-1 block text-base font-medium" to="Categor&iacute;as" />
-      <x-link.page class="mt-1 block text-base font-medium" to="Ofertas" />
-      <x-link.page class="mt-1 block text-base font-medium" to="Acerca de" />
+      <x-link.page url="#" class="mt-1 block text-base font-medium" to="Home" />
+      <x-link.page url="#" class="mt-1 block text-base font-medium" to="Categor&iacute;as" />
+      <x-link.page url="#" class="mt-1 block text-base font-medium" to="Ofertas" />
+      <x-link.page url="#" class="mt-1 block text-base font-medium" to="Acerca de" />
     </div>
     <div class="pt-4 pb-3 border-t border-gray-700">
       <div class="flex items-center px-5">
