@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import cogoToast from "cogo-toast";
 import ProductContext from "./Context";
 
-function Card({ id, title, price, category, cover, addProduct }) {
+function Card({ id, title, price, category, cover = 1, addProduct }) {
   let state: any = useContext(ProductContext);
   let quantity: number = 0;
 
@@ -14,7 +14,7 @@ function Card({ id, title, price, category, cover, addProduct }) {
   return (
     <div className="product-card-container relative">
       <img
-        src="/images/computer.png"
+        src={`/images/products/${cover}.png`}
         className="object-cover w-full shadow-sm h-48 rounded-lg mb-px"
       />
       <div className="flex justify-between mt-2 items-center text-white">

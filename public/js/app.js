@@ -461,7 +461,7 @@ var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/reac
 var cogo_toast_1 = __importDefault(__webpack_require__(/*! cogo-toast */ "./node_modules/cogo-toast/dist/index.es.js"));
 var Context_1 = __importDefault(__webpack_require__(/*! ./Context */ "./resources/js/components/Product/Context.tsx"));
 function Card(_a) {
-    var id = _a.id, title = _a.title, price = _a.price, category = _a.category, cover = _a.cover, addProduct = _a.addProduct;
+    var id = _a.id, title = _a.title, price = _a.price, category = _a.category, _b = _a.cover, cover = _b === void 0 ? 1 : _b, addProduct = _a.addProduct;
     var state = react_1.useContext(Context_1.default);
     var quantity = 0;
     var item = state.cart.find(function (item) { return item.id === id; });
@@ -469,7 +469,7 @@ function Card(_a) {
         quantity = item.quantity;
     }
     return (react_1.default.createElement("div", { className: "product-card-container relative" },
-        react_1.default.createElement("img", { src: "/images/computer.png", className: "object-cover w-full shadow-sm h-48 rounded-lg mb-px" }),
+        react_1.default.createElement("img", { src: "/images/products/" + cover + ".png", className: "object-cover w-full shadow-sm h-48 rounded-lg mb-px" }),
         react_1.default.createElement("div", { className: "flex justify-between mt-2 items-center text-white" },
             react_1.default.createElement("a", { href: "#", className: "hover:underline font-bold" }, title),
             react_1.default.createElement("span", { className: "rounded text-sm px-2 py-1 text-blue-500 font-medium", title: "Precio del art\u00EDculo", style: { background: "#2a2a2a" } },
