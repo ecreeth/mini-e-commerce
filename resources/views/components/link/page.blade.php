@@ -1,1 +1,1 @@
-<a href="#" {{ $attributes->merge(['class' => 'ml-4 px-3 py-2 rounded-md text-sm text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700']) }}>{!! $to !!}</a>
+<a href="#" {{ $attributes->merge(['class' => 'ml-4 px-3 py-2 rounded-md text-xs text-gray-300 hover:text-white hover:bg-gray-850 focus:outline-none uppercase focus:text-white font-thin focus:bg-gray-1000']) }}>{!! $to !!}</a>

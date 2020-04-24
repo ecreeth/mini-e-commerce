@@ -245,7 +245,7 @@ var Context_1 = __importDefault(__webpack_require__(/*! ../Product/Context */ ".
 function Cart(props) {
     var state = react_1.useContext(Context_1.default);
     var total = new Intl.NumberFormat("en-IN").format(state.total);
-    return (react_1.default.createElement("button", { onClick: props.onClick, className: "p-1 mb-2 -mt-12 absolute right-0 top-0 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700", style: { backgroundColor: "#303030" } },
+    return (react_1.default.createElement("button", { onClick: props.onClick, className: "p-1 mb-2 -mt-10 absolute right-0 top-0 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700", style: { backgroundColor: "#303030" } },
         react_1.default.createElement("div", { className: "relative" },
             react_1.default.createElement("a", { href: "#", className: "flex items-center justify-between px-2" },
                 react_1.default.createElement("img", { src: "/images/icon-cart.svg", className: "pr-2 border-gray-800", alt: "Carrito de compras" }),

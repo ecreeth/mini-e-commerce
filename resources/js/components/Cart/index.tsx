@@ -8,7 +8,7 @@ function Cart(props) {
   return (
     <button
       onClick={props.onClick}
-      className="p-1 mb-2 -mt-12 absolute right-0 top-0 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
+      className="p-1 mb-2 -mt-10 absolute right-0 top-0 text-gray-400 rounded hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
       style={{ backgroundColor: "#303030" }}
     >
       <div className="relative">

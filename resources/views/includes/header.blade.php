@@ -1,9 +1,9 @@
 <nav class="bg-gray-800 h-32" style="background-color: #353535;">
   <div class="max-w-7xl mx-auto container px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
-      <div class="flex items-center mt-2">
+      <div class="flex items-center justify-center mt-2">
         <a href="#" class="flex-shrink-0">
-          <img class="h-8 w-8" src="{{ asset('images/logo.svg') }}" alt="Logo" />
+          <img class="h-10" src="{{ asset('images/logo.svg') }}" alt="Logo" />
         </a>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline">
