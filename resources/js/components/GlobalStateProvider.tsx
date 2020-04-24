@@ -8,7 +8,6 @@ import {
   ADD_PRODUCTS,
   REMOVE_PRODUCT,
   SET_LOADING,
-  SORT_PRODUCT_BY
 } from "./reducer";
 
 function GlobalStateProvider({ children }) {

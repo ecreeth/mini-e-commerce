@@ -2,7 +2,6 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 export const ADD_PRODUCTS = "ADD_PRODUCTS";
 export const SET_LOADING = "SET_LOADING";
-export const SORT_PRODUCT_BY = "SORT_PRODUCT_BY";
 
 const addProductToCart = (product, state) => {
   const updatedCart = [...state.cart];
@@ -46,11 +45,6 @@ const addProducts = (products, state) => {
 const setLoading = (loading, state) => {
   return { ...state, isLoading: loading };
 };
-const sortProductBy = (type, state) => {
-  const sortedProducts = state.products;
-  console.log(type);
-  return { ...state, products: sortedProducts };
-};
 
 export const CartReducer = (state, action) => {
   switch (action.type) {
@@ -62,9 +56,6 @@ export const CartReducer = (state, action) => {
       return addProducts(action.products, state);
     case SET_LOADING:
       return setLoading(action.loading, state);
-    case SORT_PRODUCT_BY:
-      return sortProductBy(action.sortBy, state);
-
     default:
       return state;
   }

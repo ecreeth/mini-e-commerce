@@ -733,7 +733,6 @@ exports.ADD_PRODUCT = "ADD_PRODUCT";
 exports.REMOVE_PRODUCT = "REMOVE_PRODUCT";
 exports.ADD_PRODUCTS = "ADD_PRODUCTS";
 exports.SET_LOADING = "SET_LOADING";
-exports.SORT_PRODUCT_BY = "SORT_PRODUCT_BY";
 var addProductToCart = function (product, state) {
     var updatedCart = __spreadArrays(state.cart);
     var updatedItemIndex = updatedCart.findIndex(function (item) { return item.id === product.id; });
@@ -768,11 +767,6 @@ var addProducts = function (products, state) {
 var setLoading = function (loading, state) {
     return __assign(__assign({}, state), { isLoading: loading });
 };
-var sortProductBy = function (type, state) {
-    var sortedProducts = state.products;
-    console.log(type);
-    return __assign(__assign({}, state), { products: sortedProducts });
-};
 exports.CartReducer = function (state, action) {
     switch (action.type) {
         case exports.ADD_PRODUCT:
@@ -783,8 +777,6 @@ exports.CartReducer = function (state, action) {
             return addProducts(action.products, state);
         case exports.SET_LOADING:
             return setLoading(action.loading, state);
-        case exports.SORT_PRODUCT_BY:
-            return sortProductBy(action.sortBy, state);
         default:
             return state;
     }
